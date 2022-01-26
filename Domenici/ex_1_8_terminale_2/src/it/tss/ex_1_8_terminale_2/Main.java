@@ -33,5 +33,28 @@ public class Main {
         } else {
             System.out.println(x + " difettivo");
         }
+
     }
-}
+
+    public static String analizza(int x) {
+        String risultato;
+        int n = 1;
+        int sommaDivisori = 0;
+
+        while (n < x) {
+            if (x % n == 0) {
+                sommaDivisori += n;
+
+            }
+            n++;
+        }
+        if (sommaDivisori == x) {
+            risultato = " perfetto";
+        } else if (sommaDivisori > x) {
+            risultato = " abbondante";
+        } else {
+            risultato = " difettivo";
+        }
+        return risultato;
+    }
+    
