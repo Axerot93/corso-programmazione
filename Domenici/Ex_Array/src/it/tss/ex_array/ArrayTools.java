@@ -90,6 +90,42 @@ public class ArrayTools {
         return false;
 
     }
+       /**
+        * Ritorna l'indice dell'elemento trovato, altrimenti -1
+        * 
+        * @param numeri
+        * @param n
+        * @return 
+        */
+              public static int ricercaIndexof(int[] numeri, int n) {
+        for(int idx=0;idx<numeri.length;idx++){
+            if(numeri[idx]==n){
+                return idx;
+               
+            }
+       
+
+        }
+
+        return -1;
+
+    }
+                    /**
+        * Ritorna l'indice dell'elemento trovato, altrimenti -1
+        * 
+        * @param start indice dal quale partire con la ricerca
+        * @param numeri
+        * @param n
+        * @return 
+        */
+              public static int ricercaIndexof(int start, int[] numeri, int n) {
+        return ricercaIndexof(0,numeri,n);
+            }
+       
+
+        
+
+    
 
 
     public static int max(int[] numeri) {
@@ -125,6 +161,13 @@ public class ArrayTools {
 
         return min;
     }
+      public static int somma(int[] numeri) {
+        int ris = 0;
+        for (int i = 0; i < numeri.length; i++) {
+            ris += numeri[i];
+        }
+        return ris;
+      }
 
     public static double media(int[] numeri) {
         if (numeri == null || numeri.length == 0) {
@@ -209,22 +252,70 @@ public class ArrayTools {
         }
                  return ris;
                  }
-        public static int intersezione (int[] numeri1,int[] numeri2){
-            int[] ris={};
-            int conta=0;
-            
-            for(int n: numeri1) {
-                if(ricerca((numeri2, n) == true){
-                    int[] tmp = new int[1];
-                    tmp[0]=n;
-                    ris=unisci(ris,tmp);                       
-                }
+    public static int[] intersezione(int[] numeri1, int[] numeri2) {
+        int[] ris = {};
+        for (int n : numeri1) {
+            if (ricerca(ris, n) == false && ricerca(numeri2, n) == true) {
+                int[] tmp = new int[1];
+                tmp[0] = n;
+                ris = unisci(ris, tmp);
             }
-            ris=new int [conta];
-            
-                    
-            
-            return ris;
         }
+        return ris;
+    }
+        public static boolean contieneValori(int[] numeri1, int[] numeri2){
+        boolean ris = true;
+            for(int n:numeri2){
+             if(ricerca(numeri1,n)==false){
+                 ris=false;
+                 break;
+             }
+             
+            }
+            return ris;
+            
+        }
+        public static boolean contieneSequenza(int[] numeri1, int[] numeri2){
+            if (numeri2.length == 0){
+                return false;
+            }
+            if(numeri2.length>numeri1.length){
+                return false;
+            }
+            boolean ris = false;
+            int n=numeri2[0];
+            int start = ricercaIndexof(numeri1, n);
+            while(start !=-1 && numeri1.length>= start + numeri2.length && !ris){
+                ris=true;
+                for(int i=0;i<numeri2.length;i++){
+                    if(numeri1[start+i]!=numeri2[i]){
+                        ris=false;
+                        break;
+                    }
+                }
+                start = ricercaIndexof(start + 1,numeri1, n);
+                
+            }
+            
+            return false;
+            
+            }
+            public static void ordinaBubble(int[] numeri) {
+        boolean ordinato;
+        do {
+            ordinato = true;
+            int indice = 0;
+            while (indice < numeri.length - 1) {
+                if (numeri[indice] > numeri[indice + 1]) {
+                    int tmp = numeri[indice];
+                    numeri[indice] = numeri[indice + 1];
+                    numeri[indice + 1] = tmp;
+                    ordinato = false;
+                }
+                indice = indice + 1;
+            }
+        } while (!ordinato);
+    }
 }
+
 
