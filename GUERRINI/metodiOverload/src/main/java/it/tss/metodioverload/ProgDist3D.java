@@ -27,6 +27,21 @@ public class ProgDist3D {
         System.out.println("y:" + y);
         System.out.println("z:" + z);
         System.out.println("distanza:" + distanza);
+        //chiedo dimensione degli array        
+        int dim1=(int) Tool.insNumero("Dimmi dim1:");
+        int dim2=(int) Tool.insNumero("Dimmi dim2:");
+        //creo array con cui lavorare
+        int ar1[]=new int [2000];
+        int ar2[]=new int [dim2];
+        int arOK[]=new int [dim1+dim2];
+        ar1=Tool.loadData(ar1, 10);
+        ar2=Tool.loadData(ar2, 5);
+        arOK=Tool.concatArrays(ar1,ar2);
+        System.out.println("primo elemento:" +ar1[0]);
+        int[]file={123,234,354,456,354,234,123,234};
+        file=Tool.concatArrays(ar1, file);
+        int[]virus={3,3,3};
+        int posvirus= Tool.cercaVirus(file,virus);
     }
 
 }
