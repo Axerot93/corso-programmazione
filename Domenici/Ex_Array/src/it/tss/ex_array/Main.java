@@ -18,7 +18,7 @@ public class Main {
      */
     public static void main(String[] args) {
         int[] input = generaArrayCasuale(10, 10);
-        int[] input1 = generaArrayCasuale(2, 20);
+        int[] input1 = generaArrayCasuale(20,2);
         ArrayTools.stampa(input);
         ArrayTools.stampa(input1);
     
