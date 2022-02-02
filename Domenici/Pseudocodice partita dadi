@@ -1,0 +1,52 @@
+start
+
+
+	punteggio= input
+	p1=0;
+	p2=0;
+	
+	while(p1<punteggio && p2<punteggio)do
+	nd1= random(1,6);
+	nd2= random(1,6);
+	if(nd1>nd2)then
+	p1++;
+	end if
+	else if
+	p2++;
+	end else
+	else
+		stampa mano patta
+	end if
+	end while
+	if(p1==punteggio)then
+	ris="il giocatore 1 vince"
+	return ris
+	end if
+	else
+	ris="il giocatore 2 vince"
+	return ris
+	end if
+
+	stampa ris
+end
+
+
+
+
+start
+
+	soldi= leggi input;
+	contamano=1
+while(soldi>0)do
+	nd1= random(1,6);
+	nd2= random(1,6);
+	if(nd1>nd2)then
+	soldi++;
+	stampa "mano vinta dal giocatore"
+	stampa contamano
+	end if
+	else
+	soldi --;
+	stampa "mano vinta dal banco"
+	end while
+	
