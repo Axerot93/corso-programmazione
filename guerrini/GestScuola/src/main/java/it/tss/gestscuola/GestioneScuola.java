@@ -31,9 +31,12 @@ public class GestioneScuola {
         String tel1 = tool.ceckTel1("0 1 2 5 - (3 )6 3 4 5 5 6 73 6");
         Alunno alunno1 = new Alunno("Gianluca", "Agrave", "----", tel1);
         Alunno alunno2 = new Alunno("Poko", "Kako", "----", tel);
+        
         alunno1.stampalistaAlunni();
         alunno2.stampalistaAlunni();
         c1.insertAlunno(alunno1);
+        Esame e1 = new Esame("Guerrini",100, "java");
+        c1.getRegistro()[1].setLibretto(e1);
         c1.insertAlunno(alunno2);
         c1.stampaRegistro();
         

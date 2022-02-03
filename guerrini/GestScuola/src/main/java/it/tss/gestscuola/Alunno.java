@@ -19,6 +19,7 @@ public class Alunno {
     private String email;
     private String tel;
     private LocalDate datainserimento = LocalDate.now();
+    private Esame[] libretto = new Esame[50];
 
     public Alunno(String nome, String cognome) {
         this.nomeAlunno = nome;
@@ -77,6 +78,16 @@ public class Alunno {
     public LocalDate getDatainserimento() {
         return datainserimento;
     }
+    public void setLibretto(Esame esame){
+        for(int i = 0;i<libretto.length;i++){
+            if(libretto[i]==null){
+                libretto[i]=esame;
+                break;
+                
+            }
+        }
+    }
+    
     
 
     void stampalistaAlunni() {
