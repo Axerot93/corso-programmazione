@@ -1,6 +1,7 @@
 
 package it.tss.OO_dado_object;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -10,6 +11,7 @@ import java.util.Random;
 public class Dado {
   private final int numeroFacce;
   private int ultimoLancio;
+  private ArrayList<Integer> storia = new ArrayList <>();
 
     public Dado(int nFacce) {
         this.numeroFacce = nFacce;
@@ -18,6 +20,8 @@ public class Dado {
   public void lancia(){
       Random rnd = new Random();
       ultimoLancio = rnd.nextInt(numeroFacce) +1;
+      storia.add(ultimoLancio);
+       
   }
 
     public int getNumeroFacce() {
@@ -26,7 +30,10 @@ public class Dado {
 
     public int getUltimoLancio() {
         return ultimoLancio;
+        
     }
-  
+  public ArrayList<Integer> getStoria(){
+      return new ArrayList<>(storia);
+  }
    
 }

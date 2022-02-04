@@ -20,6 +20,7 @@ public class Main {
         Dado dadoG = new Dado(6);
         Dado dadoB = new Dado(6);
         int conta = 1;
+        
         do {
             dadoG.lancia();
             dadoB.lancia();
@@ -45,4 +46,5 @@ public class Main {
     private static void stampaGiocatore(int soldi) {
         System.out.println("soldi giocatore+ " + soldi);
     }
+   
 }

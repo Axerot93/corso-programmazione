@@ -14,15 +14,19 @@ public class Giocatore {
     private int soldi;
     private final int maxSoldi;
     private final int minSoldi;
-
     /**
      * crezione del giocatore con inserimento della quantità di soldi di
      * partenza, il limite minimo di soldi e il limite massimo di soldi
      *
      * @param valore
      */
-   
-    
+    public Giocatore() {
+        this(10, 15, 5);
+    }
+
+    public Giocatore(int soldi) {
+        this(soldi, soldi+2,soldi-2);
+    }
 
     public Giocatore(int soldi, int maxSoldi, int minSoldi) {
         this.soldi = soldi;
@@ -41,7 +45,9 @@ public class Giocatore {
     public int getSoldi() {
         return soldi;
     }
-    public boolean isContinua(){
-        return soldi > minSoldi && soldi<maxSoldi;
+
+    public boolean isContinua() {
+        return soldi > minSoldi && soldi < maxSoldi;
     }
+ 
 }
