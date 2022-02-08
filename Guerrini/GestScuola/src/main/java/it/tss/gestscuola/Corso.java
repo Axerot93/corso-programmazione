@@ -190,5 +190,28 @@ public class Corso {
         System.out.println("--------------------------\n\n");
 
     }
+    String getInfo(){
+        String ris ="";
+        ris+=("-------scheda corso-------");
+        ris+=("\nNome corso: " + nomecorso);
+        ris+=("\nDurata corso: " + durataore);
+        ris+=("\nDescrizione del corso: : " + descrizione);
+        ris+=("\nData di inizio del corso: " + datainizio.toString());
+        ris+=("\nLink corso: " + link+"\n");
+        return ris;
+    } 
+    /**
+     * ritorno un csv con i corsi
+     * testata nomecorso;durataore;descrizione;datainizio;link
+     * elenco dati separati da ; e fine linea
+     * @return String csv
+     */
+      String getCSV(){ 
+        String ris ="";
+        
+        ris+= nomecorso + ";" +durataore+";"+descrizione+";"+datainizio + ";"+link+"\n";
+       
+        return ris;
+    } 
 
 }

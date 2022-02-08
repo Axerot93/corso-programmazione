@@ -9,5 +9,9 @@ package it.tss.GestionePrigione;
  * @author Gian
  */
 public class Cucina {
+    private AddettiMensa turnimensa[]= new AddettiMensa[3];
+    private String menu;
+    
+    
     
 }

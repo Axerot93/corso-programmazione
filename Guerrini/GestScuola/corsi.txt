@@ -1,0 +1,19 @@
+
+-------scheda corso-------
+Nome corso: 123
+Durata corso: 120
+Descrizione del corso: : 123
+Data di inizio del corso: 2022-12-12
+Link corso: 123
+-------scheda corso-------
+Nome corso: 123
+Durata corso: 120
+Descrizione del corso: : 123
+Data di inizio del corso: 2022-12-12
+Link corso: 123
+-------scheda corso-------
+Nome corso: 456
+Durata corso: 4560
+Descrizione del corso: : 456
+Data di inizio del corso: 2022-12-22
+Link corso: 456
