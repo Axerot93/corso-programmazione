@@ -1,0 +1,88 @@
+Esercizio 1.4
+Esprimete con le strutture di controllo fondamentali un algoritmo per il calcolo della potenza x^y di
+due numeri interi x e y, utilizzando esclusivamente le 4 operazioni di somma, sottrazione, prodotto
+e divisione. Si supponga y ≥ 0.
+
+start
+
+	x = leggo base
+
+	y = leggo esponente
+
+	if ( y < 0 ) then
+	
+		stampa impossibile eseguire la potenza con esponente negativo
+
+		end
+
+	end if
+
+	if ( y == 0 )then
+		
+		stampa risultato = 1
+
+		end
+
+	end if
+
+	calcola = y;
+
+	risultato = 1;
+
+	while (calcola > 0 ) do
+
+		risultato = x * risultato
+
+		calcola = calcola - 1;
+
+	end while
+
+	stampa risultato
+
+	
+
+end
+
+
+
+Correzione
+
+start
+
+	x = leggi numero input, base;
+
+	y = leggi numero input, esponente;
+
+	risultato = 1;
+
+	if ( x non intero || y non intero) then
+
+		stampa almeno un numero non è intero, impossibile proseguire
+
+		end
+	
+	end if
+
+	if(y < 0) then
+
+		stampa esponente negativo, impossibile proseguire
+
+		end
+
+	end if
+
+	conta = 1;
+
+	while (conta <= y ) do
+
+		risultato = risultato * x;
+
+		conta = conta +1;
+
+	end while
+
+	stampa risultato
+
+end
+
+
