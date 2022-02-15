@@ -27,6 +27,7 @@ public class WinGestione extends javax.swing.JFrame {
         initComponents();
         caricaDatiCorsi();
         showCorsi();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -155,7 +156,7 @@ public class WinGestione extends javax.swing.JFrame {
 
     private void btnGestioneCorsiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestioneCorsiActionPerformed
         // TODO add your handling code here:
-        new WinGestioneCorso().setVisible(true);
+        new winDialogCorsi(this,true).setVisible(true);
     }//GEN-LAST:event_btnGestioneCorsiActionPerformed
 
     /**

@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package oo_bj;
 
@@ -11,13 +10,11 @@ package oo_bj;
  */
 public class Main {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) throws InterruptedException {
-   Mazzo mazzo = new Mazzo();
 
-        Giocatore g = new Giocatore("Gianluca");
+        Mazzo mazzo = new Mazzo();
+
+        Giocatore g = new Giocatore();
         Banco b = new Banco();
 
         do {
@@ -57,6 +54,5 @@ public class Main {
 
         } while (g.isContinuaPartita());
 
-    }  
-        
     }
+}

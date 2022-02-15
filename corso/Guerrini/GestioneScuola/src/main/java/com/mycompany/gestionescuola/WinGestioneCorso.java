@@ -161,7 +161,6 @@ public class WinGestioneCorso extends javax.swing.JFrame {
                             .addComponent(lblTitolo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnupdatecorso)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                         .addGap(0, 0, Short.MAX_VALUE)
@@ -222,9 +221,9 @@ public class WinGestioneCorso extends javax.swing.JFrame {
                             .addComponent(btnupdatecorso)))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnPrepNewCorso)
-                    .addComponent(btnCreaCorso))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnCreaCorso)
+                    .addComponent(btnPrepNewCorso))
                 .addGap(62, 62, 62)
                 .addComponent(lblmsg, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -337,20 +336,7 @@ public class WinGestioneCorso extends javax.swing.JFrame {
     }//GEN-LAST:event_FmDataInizioKeyReleased
 
     private void lstCorsiValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstCorsiValueChanged
-        // TODO add your handling code here:
-        int index = lstCorsi.getSelectedIndex();
-        
-        btnupdatecorso.setEnabled(true);
-        btnCreaCorso.setEnabled(false);
-        Corso c = WinGestione.listacorsi.get(idcorso);
-        lblmsg.setText("corso selezionato correttamente!");
-        txtNomeCorso.setText(c.getNomecorso());
-        txtDescrizione.setText(c.getDescrizione());
-        txtLinkCorso.setText(c.getLink());
-        spDurataOre.setValue(c.getDurataore());
-        DateTimeFormatter ddmmaa= DateTimeFormatter.ofPattern("dd/MM/yy");
-        String dataok=c.getDatainizio().format(ddmmaa);
-        FmDataInizio.setText(dataok);
+
         
     }//GEN-LAST:event_lstCorsiValueChanged
 

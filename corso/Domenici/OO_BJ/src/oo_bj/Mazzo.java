@@ -1,14 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package oo_bj;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.Random;
-import oo_bj.Carta.Nome;
 
 /**
  *
@@ -16,16 +14,12 @@ import oo_bj.Carta.Nome;
  */
 public class Mazzo {
 
-    private ArrayList<Carta> carte;
-    private int numcarte;
+    public static final int NUMERO_CARTE = 52;
+
+    private final ArrayList<Carta> carte;
 
     public Mazzo() {
-        this(52);
-    }
-
-    public Mazzo(int numcarte) {
-        this.numcarte = numcarte;
-        carte = new ArrayList<>(numcarte);
+        carte = new ArrayList<>(NUMERO_CARTE);
         crea();
     }
 
@@ -34,7 +28,7 @@ public class Mazzo {
         EnumSet<Carta.Seme> semi = EnumSet.allOf(Carta.Seme.class);
         for (Carta.Seme seme : semi) {
             for (int i = 1; i <= 13; i++) {
-                Carta.Nome nome = Carta.Nome.values()[i-1];
+                Carta.Nome nome = Carta.Nome.values()[i - 1];
                 if (i == 1) {
                     //asso
                     ArrayList<Integer> valori = new ArrayList<>(2);
@@ -48,7 +42,6 @@ public class Mazzo {
                     Carta carta = new Carta(seme, i, nome);
                     carte.add(carta);
                 }
-
             }
         }
     }
@@ -59,10 +52,13 @@ public class Mazzo {
         Carta result = carte.get(index);
         result.setCoperta(coperta);
         carte.remove(index);
+        if (carte.isEmpty()) {
+            crea();
+        }
         return result;
     }
-    
-    public int numeroCarte(){
+
+    public int numeroCarte() {
         return carte.size();
     }
 
@@ -71,9 +67,6 @@ public class Mazzo {
         String result = "";
         for (Carta carta : carte) {
             result += carta.toString() + "\n";
-        }
-        if(carte.isEmpty()){
-            crea();
         }
         return result;
     }

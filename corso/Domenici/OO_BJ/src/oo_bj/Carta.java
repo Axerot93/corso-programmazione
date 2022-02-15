@@ -1,7 +1,6 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package oo_bj;
 
@@ -15,42 +14,43 @@ import java.util.Objects;
 public class Carta {
 
     public static enum Seme {
-        CUORI, QUADRI, FIORI, PICCHE;
+        CUORI, QUADRI, FIORI, PICCHE
     }
 
     public static enum Nome {
-        ASSO, DUE, TRE, QUATTRO, CINQUE, SEI, SETTE, OTTO, NOVE, DIECI, FANTE, REGINA, RE;
+        ASSO, DUE, TRE, QUATTRO, CINQUE, SEI, SETTE, OTTO, NOVE, DIECI, FANTE, REGINA, RE
     }
+
     private final Seme seme;
-    private final ArrayList<Integer> valoripossibili;
+    private final ArrayList<Integer> valoriPossibili;
     private int valore;
-    private boolean coperta = false;
     private final Nome nome;
+    private boolean coperta = true;
 
     public Carta(Seme seme, int valore, Nome nome) {
-        this.seme = seme;
-        this.valore = valore;
-        this.nome = nome;
-        this.valoripossibili=new ArrayList<>();
+        this(seme, valore, nome, new ArrayList());
     }
-    
-    
 
-    
-    
-    public Carta(Seme seme, int valore, Nome nome, ArrayList<Integer> valori) {
+    public Carta(Seme seme,
+            int valore,
+            Nome nome,
+            ArrayList<Integer> valori) {
+        Objects.requireNonNull(seme, "seme non può essere null");
+        Objects.requireNonNull(nome, "nome non può essere null");
+        checkValore(valore);
         this.seme = seme;
         this.valore = valore;
         this.nome = nome;
-        this.valoripossibili = new ArrayList<>(valori);
-        if (this.valoripossibili.isEmpty()) {
-            valoripossibili.add(valore);
-
+        this.valoriPossibili = new ArrayList<>(valori);
+        if (this.valoriPossibili.isEmpty()) {
+            this.valoriPossibili.add(valore);
         }
     }
 
-    public void setCoperta(boolean coperta) {
-        this.coperta = coperta;
+    private void checkValore(int valore) {
+        if (valore <= 0 || valore > 13) {
+            throw new IllegalArgumentException("Valore non compreso tra 1 e 13");
+        }
     }
 
     public Seme getSeme() {
@@ -61,30 +61,40 @@ public class Carta {
         return valore;
     }
 
+    public Nome getNome() {
+        return nome;
+    }
+
     public void setValore(int valore) {
-        if (!valoripossibili.contains(valore)) {
-            throw new IllegalArgumentException("valore non previsto!");
+        if (!valoriPossibili.contains(valore)) {
+            throw new IllegalArgumentException("Valore non previsto");
         }
         this.valore = valore;
     }
 
-    public Nome getNome() {
-        return nome;
+    public boolean isCoperta() {
+        return this.coperta;
     }
-    
+
+    public void setCoperta(boolean coperta) {
+        this.coperta = coperta;
+    }
 
     @Override
     public String toString() {
-        return this.coperta ? "???????" :
-            this.nome.name() + " di " + this.seme.name();
+        if (this.coperta) {
+            return "????????";
+        } else {
+            return this.nome.name() + " di " + this.seme.name() + " " + this.valore;
+        }
     }
 
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 71 * hash + Objects.hashCode(this.seme);
-        hash = 71 * hash + this.valore;
-        hash = 71 * hash + Objects.hashCode(this.nome);
+        int hash = 5;
+        hash = 59 * hash + Objects.hashCode(this.seme);
+        hash = 59 * hash + this.valore;
+        hash = 59 * hash + Objects.hashCode(this.nome);
         return hash;
     }
 
@@ -106,10 +116,7 @@ public class Carta {
         if (this.seme != other.seme) {
             return false;
         }
-        if (this.nome != other.nome) {
-            return false;
-        }
-        return true;
+        return this.nome == other.nome;
     }
-        
+
 }
