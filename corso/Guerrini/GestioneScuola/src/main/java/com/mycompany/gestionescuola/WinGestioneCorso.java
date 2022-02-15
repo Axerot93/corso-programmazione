@@ -437,7 +437,7 @@ private void salvaCorsi() {
             myWriter.write(testoDisplay);
             myWriter.close();
         } catch (IOException ex) {
-            lblmsg.setText("errore di scrittura file corsi.txt");
+            lblmsg.setText("errore di scrittura file corsi.csv");
         }
 
     }
