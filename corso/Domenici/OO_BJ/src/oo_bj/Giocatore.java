@@ -10,27 +10,37 @@ import java.util.ArrayList;
  *
  * @author tss
  */
-public class Giocatore {
+public class Giocatore extends AbstractGiocatore {
 
     private int soldi;
     private final int maxSoldi;
     private final int minSoldi;
-    private final ArrayList<Carta> mano = new ArrayList<>();
 
-    public Giocatore() {
-        this(10, 15, 5);
+    public Giocatore(String nome) {
+        this(nome, 10, 15, 5);
     }
 
-    public Giocatore(int soldi) {
-        this(soldi, soldi + 2, soldi - 2);
+    public Giocatore(String nome, int soldi) {
+        this(nome, soldi, soldi + 2, soldi - 2);
     }
 
-    public Giocatore(int soldi, int maxSoldi, int minSoldi) {
+    public Giocatore(String nome, int soldi, int maxSoldi, int minSoldi) {
+        super(nome);
         this.soldi = soldi;
         this.maxSoldi = maxSoldi;
         this.minSoldi = minSoldi;
     }
 
+    /*
+    ------------------------------ metodi -------------------------------------
+     */
+
+    @Override
+    protected boolean isContinua() {
+        return valoreMano() <= 15;
+    }
+    
+    
     public void incrementaSoldi() {
         soldi++;
     }
@@ -39,46 +49,22 @@ public class Giocatore {
         soldi--;
     }
 
-    public int getSoldi() {
-        return soldi;
-    }
-
-    public void initMano() {
-        mano.clear();
-    }
-
-    public void addCarta(Carta c) {
-        mano.add(c);
-    }
-
     public boolean isContinuaPartita() {
         return soldi > minSoldi && soldi < maxSoldi;
     }
 
-    public boolean isContinuaMano() {
-        return valoreMano() <= 15;
+
+    /*
+    ---------------------- getter setter --------------------------------------
+     */
+    public int getSoldi() {
+        return soldi;
     }
 
-    public int valoreMano() {
-        int result = 0;
-        for (Carta carta : mano) {
-            result += carta.getValore();
-        }
-        return result;
-    }
 
-    public boolean isOut() {
-        return valoreMano() > 21;
-    }
+    /*
+    --------------------- equals hashcode tostring ----------------------------
+     */
 
-    @Override
-    public String toString() {
-        String result = "-------- Giocatore ------------- \n";
-        for (Carta carta : mano) {
-            result += carta.toString() + "\n";
-        }
-        result += "valore: " + valoreMano();
-        return result;
-    }
 
 }

@@ -23,6 +23,13 @@ public class Mazzo {
         crea();
     }
 
+    /*
+    -------------------------- metodi -----------------------------------------
+    */
+    
+    /**
+     * crea un nuovo mazzo di 52 carte francesi
+     */
     public void crea() {
         carte.clear();
         EnumSet<Carta.Seme> semi = EnumSet.allOf(Carta.Seme.class);
@@ -46,6 +53,12 @@ public class Mazzo {
         }
     }
 
+    /**
+     * pesca una carta eliminandola dal mazzo. Quando si pesca l'ultima carta,
+     * il mazzo viene ricreato
+     * @param coperta indica se carta pescata è coperta o scoperta
+     * @return 
+     */
     public Carta pesca(boolean coperta) {
         Random rnd = new Random();
         int index = rnd.nextInt(carte.size());
@@ -58,10 +71,18 @@ public class Mazzo {
         return result;
     }
 
+    /**
+     * ritorna il numero di carte presenti nel mazzo
+     * @return 
+     */
     public int numeroCarte() {
         return carte.size();
     }
 
+    
+    /*
+    ------------------------------ tostring ------------------------------------
+    */
     @Override
     public String toString() {
         String result = "";

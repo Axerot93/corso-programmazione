@@ -47,12 +47,18 @@ public class Carta {
         }
     }
 
+    /*
+    ------------------------- metodi -------------------------------------------
+    */
     private void checkValore(int valore) {
         if (valore <= 0 || valore > 13) {
             throw new IllegalArgumentException("Valore non compreso tra 1 e 13");
         }
     }
 
+    /*
+    ------------------- getter setter -------------------------------------------
+    */
     public Seme getSeme() {
         return seme;
     }
@@ -80,6 +86,9 @@ public class Carta {
         this.coperta = coperta;
     }
 
+    /*
+    --------------------- equals hashcode tostring ----------------------------
+    */
     @Override
     public String toString() {
         if (this.coperta) {

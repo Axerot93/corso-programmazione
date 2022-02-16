@@ -14,36 +14,25 @@ public class Main {
 
         Mazzo mazzo = new Mazzo();
 
-        Giocatore g = new Giocatore();
+        Giocatore g = new Giocatore("Rossi");
         Banco b = new Banco();
 
         do {
             if (mazzo.numeroCarte() < 20) {
                 mazzo.crea();
             }
-            b.initMano();
-            g.initMano();
-            g.addCarta(mazzo.pesca(false));
-            g.addCarta(mazzo.pesca(false));
-            System.out.println(g.toString());
-            b.addCarta(mazzo.pesca(false));
-            b.addCarta(mazzo.pesca(true));
-            System.out.println(b.toString());
-            while (g.isContinuaMano() && !g.isOut()) {
-                Thread.sleep(3000);
-                g.addCarta(mazzo.pesca(false));
-                System.out.println(g.toString());
-            }
+
+            initMano(b, g, mazzo);
+
+            giocaMano(g, mazzo);
+            
             if (g.isOut()) {
                 g.decrementaSoldi();
-                System.out.println("soldi giocatore: " + g.getSoldi());
                 continue;
             }
-            while (b.isContinuaMano() && !b.isOut()) {
-                Thread.sleep(3000);
-                b.addCarta(mazzo.pesca(false));
-                System.out.println(b.toString());
-            }
+            
+            giocaMano(b, mazzo);
+            
             if (b.isOut() || b.valoreMano() < g.valoreMano()) {
                 g.incrementaSoldi();
                 //stampaMano
@@ -54,5 +43,25 @@ public class Main {
 
         } while (g.isContinuaPartita());
 
+    }
+
+    private static void initMano(Banco b, Giocatore g, Mazzo mazzo) {
+        b.initMano();
+        g.initMano();
+        g.addCarta(mazzo.pesca(false));
+        g.addCarta(mazzo.pesca(false));
+        b.addCarta(mazzo.pesca(false));
+        b.addCarta(mazzo.pesca(true));
+        System.out.println(g.toString() + " - " + b.toString());
+    }
+
+    private static void giocaMano(AbstractGiocatore ag, Mazzo mazzo) throws InterruptedException {
+        System.out.print(ag.toString());
+        while (ag.isContinuaMano() && !ag.isOut()) {
+            Thread.sleep(3000);
+            Carta c = mazzo.pesca(false);
+            ag.addCarta(c);
+            System.out.print(c.toString());
+        }
     }
 }
