@@ -9,14 +9,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author tss
  */
 public class winDialogCorsi extends javax.swing.JDialog {
-
-   
 
     /**
      * Creates new form winDialogCorsi
@@ -63,10 +62,11 @@ public class winDialogCorsi extends javax.swing.JDialog {
         lblmsg = new javax.swing.JLabel();
         btnClose = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
-        ltRegistro = new javax.swing.JList<>();
+        lstRegistro = new javax.swing.JList<>();
         jScrollPane5 = new javax.swing.JScrollPane();
         lstAnagrafica = new javax.swing.JList<>();
         btnIscrivi = new javax.swing.JButton();
+        btnDeletCorso = new javax.swing.JButton();
 
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
@@ -99,7 +99,7 @@ public class winDialogCorsi extends javax.swing.JDialog {
         });
         jScrollPane2.setViewportView(lstCorsi);
 
-        spDurataOre.setModel(new javax.swing.SpinnerNumberModel(0, null, null, 320));
+        spDurataOre.setModel(new javax.swing.SpinnerNumberModel());
         spDurataOre.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 spDurataOrePropertyChange(evt);
@@ -151,6 +151,11 @@ public class winDialogCorsi extends javax.swing.JDialog {
         });
 
         btnCreaCorso.setText("crea corso");
+        btnCreaCorso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCreaCorsoActionPerformed(evt);
+            }
+        });
 
         btnClose.setText("Chiudi");
         btnClose.addActionListener(new java.awt.event.ActionListener() {
@@ -159,20 +164,12 @@ public class winDialogCorsi extends javax.swing.JDialog {
             }
         });
 
-        ltRegistro.setBackground(new java.awt.Color(50, 255, 255));
-        ltRegistro.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane3.setViewportView(ltRegistro);
+        lstRegistro.setBackground(new java.awt.Color(50, 255, 255));
+        lstRegistro.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        jScrollPane3.setViewportView(lstRegistro);
 
         lstAnagrafica.setBackground(new java.awt.Color(154, 76, 50));
-        lstAnagrafica.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
+        lstAnagrafica.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane5.setViewportView(lstAnagrafica);
 
         btnIscrivi.setBackground(new java.awt.Color(255, 255, 255));
@@ -180,6 +177,13 @@ public class winDialogCorsi extends javax.swing.JDialog {
         btnIscrivi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnIscriviActionPerformed(evt);
+            }
+        });
+
+        btnDeletCorso.setText("elimina corso");
+        btnDeletCorso.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeletCorsoActionPerformed(evt);
             }
         });
 
@@ -195,7 +199,8 @@ public class winDialogCorsi extends javax.swing.JDialog {
                             .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 131, Short.MAX_VALUE)))
                     .addComponent(btnCreaCorso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnClose, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnDeletCorso, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblTitolo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -250,12 +255,14 @@ public class winDialogCorsi extends javax.swing.JDialog {
                     .addComponent(txtNomeCorso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(btnCreaCorso)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnDeletCorso)
+                        .addGap(170, 170, 170)
                         .addComponent(btnClose))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,8 +290,8 @@ public class winDialogCorsi extends javax.swing.JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnIscrivi)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(61, Short.MAX_VALUE))))
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -293,12 +300,10 @@ public class winDialogCorsi extends javax.swing.JDialog {
     private void lstCorsiValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstCorsiValueChanged
         // TODO add your handling code here:
         int index = lstCorsi.getSelectedIndex();
-      
 
         String link = txtLinkCorso.getText();
         int durataore = (int) spDurataOre.getValue();
 
-        
         btnCreaCorso.setEnabled(false);
         Corso c = WinGestione.listacorsi.get(index);
         lblmsg.setText("corso selezionato correttamente!");
@@ -310,11 +315,10 @@ public class winDialogCorsi extends javax.swing.JDialog {
         String dataok = c.getDatainizio().format(ddmmaa);
         FmDataInizio.setText(dataok);
         btnupdatecorso.setEnabled(true);
-        
-        
+
         salvaCorsiCSV();
         validaCorso();
-        
+        refreshListaRegistro();
 
     }//GEN-LAST:event_lstCorsiValueChanged
 
@@ -369,6 +373,37 @@ public class winDialogCorsi extends javax.swing.JDialog {
 
     private void btnConfermaDatiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfermaDatiActionPerformed
         // TODO add your handling code here:
+        String nc = txtNomeCorso.getText();
+        String des = txtDescrizione.getText();
+        String datainizio = FmDataInizio.getText();
+        String ardata[] = datainizio.split("/");
+        int d = Integer.parseInt(ardata[0]);
+        int m = Integer.parseInt(ardata[1]);
+        int y = Integer.parseInt(ardata[2]) + 2000;
+
+        String link = txtLinkCorso.getText();
+        int durataore = (int) spDurataOre.getValue();
+        Corso newcorso = new Corso(nc, durataore, y, m, d);
+        newcorso.setDescrizione(des);
+        newcorso.setLink(link);
+        if (lstCorsi.getSelectedIndex() == -1) {
+            WinGestione.listacorsi.add(newcorso);
+            lblmsg.setText("corso creato correttamente");
+        } else {
+            WinGestione.listacorsi.set(lstCorsi.getSelectedIndex(), newcorso);
+            lblmsg.setText("Corso Aggiornato Correttamente");
+        }
+        txtNomeCorso.setText("");
+        txtDescrizione.setText("");
+        FmDataInizio.setText("");
+        txtLinkCorso.setText("");
+        spDurataOre.setValue(1);
+        lstCorsi.setSelectedIndex(-1);
+        refreshLista();
+        salvaCorsi();
+        salvaCorsiCSV();
+        validaCorso();
+
     }//GEN-LAST:event_btnConfermaDatiActionPerformed
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed
@@ -378,24 +413,74 @@ public class winDialogCorsi extends javax.swing.JDialog {
 
     private void btnIscriviActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIscriviActionPerformed
         // TODO add your handling code here:
-        int index = lstAnagrafica.getSelectedIndex();
-        if(index==-1) return;
-        String c = WinGestione.listaAnagrafiche.get(index).getCognome();
-        String n = WinGestione.listaAnagrafiche.get(index).getNome();
-        
-        Alunno al= new Alunno(n, c);
-        
-        int idcorso = lstCorsi.getSelectedIndex();
-        WinGestione.listacorsi.get(idcorso).insertAlunno(al);
-        refreshlstRegistro();
-        
-        
+
+        int indexA = lstAnagrafica.getSelectedIndex();
+        if (indexA == -1) {
+            return;
+        }
+        int indexC = lstCorsi.getSelectedIndex();
+        if (indexC == -1) {
+            return;
+        }
+        Anagrafica iscritto = WinGestione.listaAnagrafiche.get(indexA);
+
+        boolean ok = WinGestione.listacorsi.get(indexC).insertAlunno(iscritto);
+        if (!ok) {
+            JOptionPane.showMessageDialog(null, "alunno già inserito!");
+        } else {
+            refreshListaRegistro();
+            salvaCorsiCSV();
+        }
+
     }//GEN-LAST:event_btnIscriviActionPerformed
 
-    
-    
-    
-    
+    private void btnCreaCorsoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreaCorsoActionPerformed
+        // TODO add your handling code here:
+        String nc = txtNomeCorso.getText();
+        String des = txtDescrizione.getText();
+        String datainizio = FmDataInizio.getText();
+        String ardata[] = datainizio.split("/");
+        int d = Integer.parseInt(ardata[0]);
+        int m = Integer.parseInt(ardata[1]);
+        int y = Integer.parseInt(ardata[2]) + 2000;
+
+        String link = txtLinkCorso.getText();
+        int durataore = (int) spDurataOre.getValue();
+        Corso newcorso = new Corso(nc, durataore, y, m, d);
+        newcorso.setDescrizione(des);
+        newcorso.setLink(link);
+        if (lstCorsi.getSelectedIndex() == -1) {
+            WinGestione.listacorsi.add(newcorso);
+            lblmsg.setText("corso creato correttamente");
+        } else {
+            WinGestione.listacorsi.set(lstCorsi.getSelectedIndex(), newcorso);
+            lblmsg.setText("Corso Aggiornato Correttamente");
+        }
+        txtNomeCorso.setText("");
+        txtDescrizione.setText("");
+        FmDataInizio.setText("");
+        txtLinkCorso.setText("");
+        spDurataOre.setValue(1);
+        lstCorsi.setSelectedIndex(-1);
+        refreshLista();
+        salvaCorsi();
+        salvaCorsiCSV();
+        validaCorso();
+    }//GEN-LAST:event_btnCreaCorsoActionPerformed
+
+    private void btnDeletCorsoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeletCorsoActionPerformed
+        // TODO add your handling code here:
+        int index = lstCorsi.getSelectedIndex();
+        if(index==-1)return;
+        int input = JOptionPane.showConfirmDialog(null, "Confermi l'eliminazione?", "ELIMINA Corso", JOptionPane.OK_CANCEL_OPTION);
+        if (input == 0) {
+            WinGestione.listacorsi.remove(index);
+            salvaCorsiCSV();
+            refreshLista();
+            
+    }//GEN-LAST:event_btnDeletCorsoActionPerformed
+    }
+
     private void salvaCorsi() {
         //recupero un corso per volta
         //estraggo info tipo string
@@ -423,7 +508,7 @@ public class winDialogCorsi extends javax.swing.JDialog {
         //recupero un corso per volta
         //estraggo info tipo string
         //aggiungo info a un testo generico che poi setto in display
-        String testoDisplay = "nomecorso;durataore;descrizione;datainizio;link\n";
+        String testoDisplay = "nomecorso;durataore;descrizione;datainizio;link; lista id alunni\n";
         for (int i = 0; i < WinGestione.listacorsi.size(); i++) {
             Corso c = WinGestione.listacorsi.get(i);
             String info = c.getCSV();
@@ -456,7 +541,6 @@ public class winDialogCorsi extends javax.swing.JDialog {
 
         return ret;
     }
-    
 
     private void refreshLista() {
         DefaultListModel model = new DefaultListModel();
@@ -466,8 +550,9 @@ public class winDialogCorsi extends javax.swing.JDialog {
         }
 
         lstCorsi.setModel(model);
-        
+
     }
+
     private void refreshListaA() {
         DefaultListModel model = new DefaultListModel();
         for (int i = 0; i < WinGestione.listaAnagrafiche.size(); i++) {
@@ -478,18 +563,21 @@ public class winDialogCorsi extends javax.swing.JDialog {
 
         lstAnagrafica.setModel(model);
     }
-    private void refreshlstRegistro() {
+
+    private void refreshListaRegistro() {
+        int idxcorso = lstCorsi.getSelectedIndex();
+        if (idxcorso == -1) {
+            return;
+        }
+        Corso c = WinGestione.listacorsi.get(idxcorso);
         DefaultListModel model = new DefaultListModel();
-        
-        for (int i = 0; i < WinGestione.listaAnagrafiche.size(); i++) {
-            Anagrafica a = WinGestione.listaAnagrafiche.get(i);
-            String item = a.getId_anagrafica() + ")" + a.getCognome() + " " + a.getNome();
-            model.addElement(item);
+        for (Anagrafica al : c.getRegistro()) {
+            String nc = al.getCognome() + " " + al.getNome();
+            model.addElement(nc);
         }
 
-        lstAnagrafica.setModel(model);
+        lstRegistro.setModel(model);
     }
-
 
     /**
      * @param args the command line arguments
@@ -526,23 +614,22 @@ public class winDialogCorsi extends javax.swing.JDialog {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         System.exit(0);
-                        
+
                     }
-                
-                
-            });
+
+                });
                 dialog.setVisible(true);
-                        }
-        
-       });
-        
-    
-}
+            }
+
+        });
+
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JFormattedTextField FmDataInizio;
     private javax.swing.JButton btnClose;
     private javax.swing.JButton btnConfermaDati;
     private javax.swing.JButton btnCreaCorso;
+    private javax.swing.JButton btnDeletCorso;
     private javax.swing.JButton btnIscrivi;
     private javax.swing.JButton btnupdatecorso;
     private javax.swing.JLabel jLabel1;
@@ -561,13 +648,11 @@ public class winDialogCorsi extends javax.swing.JDialog {
     private javax.swing.JLabel lblmsg;
     private javax.swing.JList<String> lstAnagrafica;
     private javax.swing.JList<String> lstCorsi;
-    private javax.swing.JList<String> ltRegistro;
+    private javax.swing.JList<String> lstRegistro;
     private javax.swing.JSpinner spDurataOre;
     private javax.swing.JTextArea txtDescrizione;
     private javax.swing.JTextField txtLinkCorso;
     private javax.swing.JTextField txtNomeCorso;
     // End of variables declaration//GEN-END:variables
 
-    
-                
 }

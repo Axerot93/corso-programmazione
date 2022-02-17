@@ -24,10 +24,11 @@ public class WinGestione extends javax.swing.JFrame {
      */
     public WinGestione() {
         initComponents();
+        caricaDatiAnagrafica();
         caricaDatiCorsi();
         showCorsi();
         this.setLocationRelativeTo(null);
-        caricaDatiAnagrafica();
+        
     }
 
     /**
@@ -81,8 +82,22 @@ public class WinGestione extends javax.swing.JFrame {
                int y = Integer.parseInt(d[0]);
                int m = Integer.parseInt(d[1]);
                int g = Integer.parseInt(d[2]);
-               String link = dati[4];
+               String link = "";
+               if (dati.length>=5){
+                link = dati[4]; 
+                
+            }           
+               ////
                Corso c = new Corso(nc, durata, y, m, g);
+               if(dati.length>=6){
+               String registro = dati[5];
+               String[] regid = registro.split(",");
+               for(String sid:regid){
+                int id=Integer.parseInt(sid);
+                Anagrafica al=getAlunnoById(id);
+                c.insertAlunno(al);
+               }
+               }
                c.setDescrizione(des);
                c.setLink(link);
                //il corso è pronto, lo aggiungiamo alla lista
@@ -112,6 +127,11 @@ public class WinGestione extends javax.swing.JFrame {
         btnGestioneAnagrafica = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+        });
 
         lblTitolo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTitolo.setText("Gestione Scuola");
@@ -137,11 +157,11 @@ public class WinGestione extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(0, 70, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(lblTitolo, javax.swing.GroupLayout.PREFERRED_SIZE, 1074, javax.swing.GroupLayout.PREFERRED_SIZE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 567, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 376, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -168,7 +188,7 @@ public class WinGestione extends javax.swing.JFrame {
                         .addComponent(btnGestioneAnagrafica)
                         .addGap(274, 274, 274)
                         .addComponent(lblmsg, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 286, Short.MAX_VALUE))))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
 
         pack();
@@ -185,6 +205,11 @@ public class WinGestione extends javax.swing.JFrame {
         new winDialogAnagraficha(this,true).setVisible(true);
         
     }//GEN-LAST:event_btnGestioneAnagraficaActionPerformed
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+        // TODO add your handling code here:
+        showCorsi();
+    }//GEN-LAST:event_formWindowActivated
 
     /**
      * @param args the command line arguments
@@ -261,4 +286,12 @@ public class WinGestione extends javax.swing.JFrame {
     private javax.swing.JLabel lblmsg;
     private javax.swing.JTextPane tpDisplay;
     // End of variables declaration//GEN-END:variables
+
+    public static Anagrafica getAlunnoById(int id) {
+        for(Anagrafica a:listaAnagrafiche){
+            if(id==a.getId_anagrafica())
+                return a;
+        }
+        return null;
+    }
 }

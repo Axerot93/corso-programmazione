@@ -5,10 +5,8 @@
  */
 package com.mycompany.gestionescuola;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.time.LocalDate;
-import java.time.Month;
+import java.util.ArrayList;
 
 /**
  *
@@ -23,7 +21,7 @@ public class Corso {
     private LocalDate datainizio;
     private String link = "www.ciacformazione.it";
     //una struttura per caricare i possibili 30 alunni (registro)
-    Alunno[] registro = new Alunno[30];
+    private ArrayList<Anagrafica> registro = new ArrayList<>();
 
     //elenco Alunni
     //costruttori
@@ -34,18 +32,16 @@ public class Corso {
     public Corso(String nomecorso, int durataore) {
         this.nomecorso = nomecorso;
         this.durataore = durataore;
-        this.descrizione= "----";
-        datainizio= LocalDate.now();
+        this.descrizione = "----";
+        datainizio = LocalDate.now();
     }
-    
+
     public Corso(String nomecorso, int durataore, int y, int m, int d) {
         this.nomecorso = nomecorso;
         this.durataore = durataore;
-        this.descrizione= "----";
-        setDatainizio(y,m,d);
+        this.descrizione = "----";
+        setDatainizio(y, m, d);
     }
-    
-    
 
     public Corso(String nomecorso, int durataore, String descrizione) {
         this.nomecorso = nomecorso;
@@ -87,33 +83,32 @@ public class Corso {
         return datainizio;
     }
 
-     /**
-     * imposta la data inizio dai 3 parametri numerici 
+    /**
+     * imposta la data inizio dai 3 parametri numerici
+     *
      * @param y int anno
      * @param m int mese
      * @param d int giorno
-     * @return 
+     * @return
      */
-    
     public boolean setDatainizio(String datainizio) {
-        try{
-        int y, m, d;
-        String parts[] = datainizio.split(".");
-        y = Integer.parseInt(parts[0]);
-        m = Integer.parseInt(parts[1]);
-        d= Integer.parseInt(parts[2]);
-        LocalDate data = LocalDate.of(y,m,d);
-        this.datainizio = data;
-        return true;
-        }
-        catch(Exception e){
-        return false;
+        try {
+            int y, m, d;
+            String parts[] = datainizio.split(".");
+            y = Integer.parseInt(parts[0]);
+            m = Integer.parseInt(parts[1]);
+            d = Integer.parseInt(parts[2]);
+            LocalDate data = LocalDate.of(y, m, d);
+            this.datainizio = data;
+            return true;
+        } catch (Exception e) {
+            return false;
         }
     }
-    
+
     public void setDatainizio(int y, int m, int d) {
-        
-        LocalDate data = LocalDate.of(y,m,d);
+
+        LocalDate data = LocalDate.of(y, m, d);
         this.datainizio = data;
     }
 
@@ -125,95 +120,103 @@ public class Corso {
         this.link = link;
     }
 
-    public Alunno[] getRegistro() {
+    public ArrayList<Anagrafica> getRegistro() {
         return registro;
     }
 
-    public void setRegistro(Alunno[] registro) {
+    public void setRegistro(ArrayList<Anagrafica> registro) {
         this.registro = registro;
     }
 
-    void insertAlunno(Alunno alunno, int pos) {
-
-        registro[pos] = alunno;
-    }
-
-    void insertAlunno(Alunno alunno) {
-
-        int pos = 0;
-        for (int i = 0; i < registro.length; i++) {
-            if (registro[i] == null) {
-                break;
-            } else {
-                registro[i].stampaInfo();
-            }
-        }
+    void updateAlunno(Anagrafica alunno, int pos) {
+        registro.set(pos, alunno);
 
     }
 
-    void stampaRegistro() {
-
-        int pos = 0;
-        for (int i = 0; i < registro.length; i++) {
-            if (registro[i] == null) {
-                break;
-            } else {
-                registro[i].stampaInfo();
+    boolean insertAlunno(Anagrafica alunno) {
+        int ida = alunno.getId_anagrafica();
+        boolean presente = false;
+        for (Anagrafica al : registro) {
+            if (al.getId_anagrafica() == ida) {
+                return false;
             }
-
         }
-
+        registro.add(alunno);
+        return true;
     }
 
     //area metodi o capacità abilità
     String stampaInfo() {
-        String ris="";
-        ris +="\n\n--------Scheda corso----";
-        ris +="\nNome del corso: " + nomecorso;
-        ris +="\nNome del corso: " + durataore;
-        ris +="\nDescrizione del corso " + descrizione;
-        ris +="\nData inizio del corso " + datainizio.toString();
-        ris +="\nLink corso: " + link;
-        ris +="--------------\n\n";
+        String ris = "";
+        ris += "\n\n--------Scheda corso----";
+        ris += "\nNome del corso: " + nomecorso;
+        ris += "\nNome del corso: " + durataore;
+        ris += "\nDescrizione del corso " + descrizione;
+        ris += "\nData inizio del corso " + datainizio.toString();
+        ris += "\nLink corso: " + link;
+        //stampaRegistro();
+        ris += "--------------\n\n";
         return ris;
-    
 
     }
 
     String getInfo() {
-        String ris="";
-        ris +="\n\n--------Scheda corso----";
-        ris +="\nNome del corso: " + nomecorso;
-        ris +="\nNome del corso: " + durataore;
-        ris +="\nDescrizione del corso " + descrizione;
-        ris +="\nData inizio del corso " + datainizio.toString();
-        ris +="\nLink corso: " + link + "\n" ;
+        String ris = "";
+        ris += "\n\n--------Scheda corso----";
+        ris += "\nNome del corso: " + nomecorso;
+        ris += "\nNome del corso: " + durataore;
+        ris += "\nDescrizione del corso " + descrizione;
+        ris += "\nData inizio del corso " + datainizio.toString();
+        ris += "\nLink corso: " + link + "\n";
         return ris;
     }
-    
-    
+
     String getCSV() {
-        String ris="";
+        String ris = "";
         //ris +="nomecorso; durataore; descrizione; datainizio;link\n";
-        
-        ris += nomecorso + ";" + durataore + ";" + descrizione + ";" + datainizio.toString() + ";" + link + "\n";
+        String lr = "";
+        for (Anagrafica al : registro) {
+            lr += al.getId_anagrafica() + ",";
+        }
+        if (lr.length() > 0) {
+            lr = lr.substring(0, lr.length() - 1);
+        }
+        ris += nomecorso + ";" + durataore + ";" + descrizione + ";"
+                + datainizio.toString() + ";" + link + ";" + lr + "\n";
         /*
         ris +="\nNome del corso: " + durataore;
         ris +="\nDescrizione del corso " + descrizione;
         ris +="\nData inizio del corso " + datainizio.toString();
         ris +="\nLink corso: " + link + "\n";
-        */
+         */
         return ris;
     }
-    
-    
- 
+
+    public boolean isAlunno(int id) {
+        for (Anagrafica a : registro) {
+            if (a.getId_anagrafica() == id) {
+                return true;
+            }
+            else{
+                        
+                }
+        }
+        return false;
+        
     }
-    
-    
- 
- 
-    
-    
 
+}
 
+/*void stampaRegistro() {
+
+        int pos = 0;
+        for (int i = 0; i < registro.size(); i++) {
+            if (registro.get(i) == null) {
+                break;
+            } else {
+                registro.get(i).stampaInfo();
+            }
+
+        }
+
+    }*/

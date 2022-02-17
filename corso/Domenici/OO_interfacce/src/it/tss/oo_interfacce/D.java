@@ -9,7 +9,7 @@ package it.tss.oo_interfacce;
  *
  * @author tss
  */
-public interface D {
+public interface D{
     public void m4();
     
 }

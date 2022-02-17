@@ -242,11 +242,25 @@ public class winDialogAnagraficha extends javax.swing.JDialog {
     private void btnEliminaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminaActionPerformed
         // TODO add your handling code here:
         int index=lstAnagrafica.getSelectedIndex();
+        if(index==-1)return;
+        int id = WinGestione.listaAnagrafiche.get(index).getId_anagrafica();
+        boolean ok = true;
+        for(Corso c:WinGestione.listacorsi){
+            if(c.isAlunno(id)== true){
+                ok = false;
+                break;
+            }
+        }
+        if(ok){
         int input = JOptionPane.showConfirmDialog(null,"Confermi l'eliminazione?", "ELIMINA Anagrafica",JOptionPane.OK_CANCEL_OPTION);
         if(input==0){
             WinGestione.listaAnagrafiche.remove(index);
             salvaAnagraficaCSV();
             refreshLista();
+            }
+        } 
+        else{
+            JOptionPane.showMessageDialog(null, "alunno iscritto a uno o più corsi, impossibile eliminare");
         }
         
     }//GEN-LAST:event_btnEliminaActionPerformed
