@@ -5,29 +5,34 @@
  */
 package com.mycompany.gestionescuola;
 
-import java.time.format.DateTimeFormatter;
-
 /**
  *
  * @author tss
  */
 public class Anagrafica {
+   private int id_anagrafica;
+   private String nome;
+   private String cognome;
+   private String mail;
 
-    private final int id_anagrafica;
-    private String cognome;
-    private String nome;
-    private String mail;
-
-    public Anagrafica(int id_anagrafica, String cognome, String nome, String mail) {
+    public Anagrafica(int id_anagrafica, String nome, String cognome, String mail) {
         this.id_anagrafica = id_anagrafica;
-        this.cognome = cognome;
         this.nome = nome;
+        this.cognome = cognome;
         this.mail = mail;
     }
 
-    public Anagrafica(int id_anagrafica, String cognome, String nome) {
-        this.id_anagrafica = id_anagrafica;
+    public Anagrafica(String nome, String cognome) {
+        this.nome = nome;
         this.cognome = cognome;
+        this.id_anagrafica = id_anagrafica;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
         this.nome = nome;
     }
 
@@ -37,14 +42,6 @@ public class Anagrafica {
 
     public void setCognome(String cognome) {
         this.cognome = cognome;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public String getMail() {
@@ -58,13 +55,25 @@ public class Anagrafica {
     public int getId_anagrafica() {
         return id_anagrafica;
     }
-
-    String getCSV() {
+    
+    String getCSV() {    // 
         String ris = "";
-        ris += id_anagrafica + ";" + cognome + ";" + nome + ";" + mail + "\n";
-        return ris;
+        //ris += "nomecorso;durataore;descrizione;datainizio;link\n";
+        ris =  String.valueOf(id_anagrafica) + ";" + cognome + ";" + nome 
+                + ";" + mail + "\n" ;
+          return ris;
+    }
+    
+    void stampaInfo() {
+
+        System.out.println("\n\n-------Scheda anagrafica------");
+        System.out.println("Nome : " + this.nome);
+        System.out.println("Cognome: " + this.cognome);
+        System.out.println("Mail: " + this.mail);
+        System.out.println("Id_anagrafica: " + this.id_anagrafica);
+        System.out.println("----------------------\n\n");
+
     }
 
     
-
 }

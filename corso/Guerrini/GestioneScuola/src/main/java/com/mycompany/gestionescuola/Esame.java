@@ -23,8 +23,9 @@ public class Esame {
         this.voto = voto;
         this.materia = materia;
         data= LocalDate.now();
-        
     }
+
+   
 
     public String getDocente() {
         return docente;
@@ -49,7 +50,6 @@ public class Esame {
     public void setNote(String note) {
         this.note = note;
     }
-    
     
     
     
