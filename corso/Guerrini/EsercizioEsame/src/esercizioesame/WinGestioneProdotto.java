@@ -5,6 +5,8 @@
  */
 package esercizioesame;
 
+import java.awt.List;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +22,7 @@ public class WinGestioneProdotto extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         clear();
+        
         
     }
 
@@ -168,7 +171,7 @@ public class WinGestioneProdotto extends javax.swing.JDialog {
         float prezzo = Float.parseFloat(txPrezzo.getText());
         int quantita = Integer.parseInt(txQuantita.getText());
         Prodotto a= new Prodotto(id,nome,prezzo,quantita );
-        WinGestioneNegozio.addProdotto(a);
+        
         WinGestioneNegozio.salvaProdotto();
         JOptionPane.showMessageDialog(null, "PRODOTTO SALVATO CORRETTAMENTE!");
         clear();

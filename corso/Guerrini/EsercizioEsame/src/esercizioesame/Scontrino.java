@@ -17,12 +17,14 @@ public class Scontrino {
    private float Iva;
    private float prezzofinale;
    private LocalDateTime data; 
+   private int quantitaVenduta;
 
-    public Scontrino(String Prodotto, float Iva, float prezzofinale, LocalDateTime data) {
-        this.prodottovenduto = prodottovenduto;
+    public Scontrino(Prodotto prodotto, float Iva, float prezzofinale, LocalDateTime data, int quantitaVenduta) {
+        this.prodottovenduto = prodotto;
         this.Iva = Iva;
         this.prezzofinale = prezzofinale;
         this.data = data;
+        this.quantitaVenduta= quantitaVenduta;
     }
    
    public String stampaScontrino(){
