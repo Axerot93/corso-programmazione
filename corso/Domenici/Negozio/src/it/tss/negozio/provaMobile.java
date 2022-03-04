@@ -16,13 +16,10 @@ import java.util.stream.Collectors;
  * @author tss
  */
 public class provaMobile {
-    List<Mobile> mobili= new ArrayList<>();
-    public void aggiungiMobile(Mobile b){
-        mobili.add(b);
-    }
-    public List<Mobile> scegliMobile(List <Mobile> lstmobili,double prezzo, int larghezza,int altezza, int profondita) {
+  
+    public List<Mobile> scegliMobile(List <Mobile> catalogo,double prezzo, int larghezza,int altezza, int profondita) {
         
-        return mobili.stream()
+        return catalogo.stream()
                 .filter(v -> v.getPrezzo()< prezzo)
                 .filter(v->v.getLarghezza() < larghezza)
                 .filter(v->v.getAltezza()< altezza)

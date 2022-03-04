@@ -25,13 +25,18 @@ public class Main {
         System.out.println(a.getArticoliSottoPrezzo(100.99));
         System.out.println("lista completa");
         System.out.println(a.toString());
+        
+        
+        
+        
         provaMobile n= new provaMobile();
         Mobile tavolo= new Mobile("Tavolo",100.00,50, 100, 60);
         Mobile mobiletto= new Mobile("mobiletto bagno", 80.00,60, 80, 20);
         Mobile credenza = new Mobile("credenza cucina",120,80,150,90);
-        n.aggiungiMobile(tavolo);
-        n.aggiungiMobile(mobiletto);
-        n.aggiungiMobile(credenza);
-        System.out.println(n.scegliMobile(n.mobili,90.00, 70, 90, 30));
+        Catalogo mobili= new Catalogo();
+        mobili.aggiungiArticoli(tavolo);
+        mobili.aggiungiArticoli(mobiletto);
+        mobili.aggiungiArticoli(credenza);
+        System.out.println(n.scegliMobile(mobili.articoli,90.00, 70, 90, 30));
     }
 }

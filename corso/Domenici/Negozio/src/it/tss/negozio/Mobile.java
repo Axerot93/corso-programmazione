@@ -36,7 +36,7 @@ public class Mobile implements Articolo {
 
     @Override
     public String toString() {
-        return "Mobile{"+"nome="+nome +" "+ "Larghezza=" + Larghezza + ", Altezza=" + Altezza + ", Profondit\u00e0=" + Profondita + '}';
+        return "Mobile{"+"nome"+nome +" "+ "Larghezza=" + Larghezza + ", Altezza=" + Altezza + ", Profondit\u00e0=" + Profondita + '}';
     }
 
     public int getLarghezza() {
