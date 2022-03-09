@@ -1,0 +1,1 @@
+SELECT * FROM DBscuola.v_iscrizioni_full where provincia="to" order by titolo_corso;
