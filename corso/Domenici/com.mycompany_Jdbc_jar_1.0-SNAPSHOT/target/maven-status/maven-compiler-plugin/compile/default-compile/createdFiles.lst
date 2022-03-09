@@ -1,2 +1,5 @@
 it/tss/jdbc/Main.class
+it/tss/jdbc/Anagrafica.class
 it/tss/jdbc/Corso.class
+it/tss/jdbc/Provincia.class
+it/tss/jdbc/Iscrizione.class

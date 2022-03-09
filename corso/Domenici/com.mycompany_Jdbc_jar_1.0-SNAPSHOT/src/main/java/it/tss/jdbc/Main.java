@@ -32,18 +32,22 @@ public class Main {
                 .getResultList()
                 .forEach(System.out::println);
         
-        Corso tosave = new Corso();
+        /*Corso tosave = new Corso();
         tosave.setTitolo("jakarta EE parte 3");
         tosave.setDatainizio(LocalDate.now());
         tosave.setCosto(BigDecimal.valueOf(120,50));
         tosave.setData(LocalDateTime.now());
+        */
         
-        em.getTransaction().begin();
+        //em.getTransaction().begin();
         
         
         //em.persist(tosave);
         
         
-        em.getTransaction().commit();
+        //em.getTransaction().commit();
+        em.createQuery("select e from Iscrizione e order by e.il DESC",Iscrizione.class)
+                .getResultList()
+                .forEach(System.out::println);
     }
 }
