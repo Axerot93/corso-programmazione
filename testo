@@ -1,0 +1,13 @@
+select t_corsi.*,
+case
+when duratacorso<sogliacorto then "corto"
+
+when duratacorso<=sogliamedio then "medio"
+
+when duratacorso<=soglialungo then "lungo"
+
+else "extra"
+
+end as classecorso
+
+from t_corsi,t_opzioni
