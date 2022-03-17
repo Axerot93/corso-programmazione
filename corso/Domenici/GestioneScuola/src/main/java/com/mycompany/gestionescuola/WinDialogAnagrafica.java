@@ -2,10 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
  */
-package it.tss.jdbc;
+package com.mycompany.gestionescuola;
 
-import com.mycompany.gestionescuola.WinGestione;
+import com.mycompany.gestionescuola.entity.Anagrafica;
+import com.mycompany.gestionescuola.entity.Corso;
+import com.mycompany.gestionescuola.entity.Provincia;
+import com.mycompany.gestionescuola.services.AnagraficaService;
+import com.mycompany.gestionescuola.services.IscrizioneService;
 import java.io.FileWriter;
+import java.util.List;
+import java.util.Optional;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -15,12 +21,18 @@ import javax.swing.JOptionPane;
  */
 public class WinDialogAnagrafica extends javax.swing.JDialog {
 
+    private AnagraficaService anagraficaService;
+    private List<Anagrafica> anagrafiche;
+    private IscrizioneService iscrService;
+    
     /**
      * Creates new form WinGestioneAnagrafica
      */
     public WinDialogAnagrafica(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.anagraficaService = new AnagraficaService();
+        this.iscrService = new IscrizioneService();
         this.setLocationRelativeTo(null);
         refreshLista();
     }
@@ -41,7 +53,7 @@ public class WinDialogAnagrafica extends javax.swing.JDialog {
         lblID = new javax.swing.JLabel();
         txNome = new javax.swing.JTextField();
         txCognome = new javax.swing.JTextField();
-        txMail = new javax.swing.JTextField();
+        txPv = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -79,7 +91,7 @@ public class WinDialogAnagrafica extends javax.swing.JDialog {
 
         jLabel3.setText("Nome:");
 
-        jLabel4.setText("Mail:");
+        jLabel4.setText("Pv:");
 
         btnConferma.setText("Conferma");
         btnConferma.addActionListener(new java.awt.event.ActionListener() {
@@ -127,7 +139,7 @@ public class WinDialogAnagrafica extends javax.swing.JDialog {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(txNome)
                                 .addComponent(txCognome, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
-                                .addComponent(txMail))
+                                .addComponent(txPv))
                             .addContainerGap()))
                     .addComponent(lblMsg, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -154,7 +166,7 @@ public class WinDialogAnagrafica extends javax.swing.JDialog {
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txMail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txPv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel4))))
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -190,21 +202,28 @@ public class WinDialogAnagrafica extends javax.swing.JDialog {
         // TODO add your handling code here:
         String c = txCognome.getText();
         String n = txNome.getText();
-        String m = txMail.getText();
+        String pv = txPv.getText();
+        Optional<Provincia> optProvincia = anagraficaService.findProvinciaByName(pv);
+        if(optProvincia.isEmpty()){
+            JOptionPane.showMessageDialog(null, "Provincia non trovata!");
+            return;
+        }
+        Provincia prov = optProvincia.get();
         if (lblID.getText().equals("")) { //caso no id e quindi nuova aggiunta
-            int id = WinGestione.getNewIdAnagrafica();
-            Anagrafica a = new Anagrafica(id, c, n, m);
-            WinGestione.listaAnagrafiche.add(a);
+            Anagrafica a = new Anagrafica(c, n);
+            a.setPv(prov);
+            anagraficaService.save(a);
         } else { //caso id presente, quindi modifica
-            int id = Integer.parseInt(lblID.getText());
-            Anagrafica a = new Anagrafica(id, c, n, m);
+            long id = Long.parseLong(lblID.getText());
+            Anagrafica toupdate = anagraficaService.find(id);
+            toupdate.setCognome(c);
+            toupdate.setNome(n);
+            toupdate.setPv(prov);
+            anagraficaService.save(toupdate);
             //cerco l'indice dell'elemento selezionato in lista che sto modificando
-            int index = lstAnagrafica.getSelectedIndex();
-            WinGestione.listaAnagrafiche.set(index, a);
         }
         refreshLista();
         pulisci();
-        salvaAnagraficaCSV();
     }//GEN-LAST:event_btnConfermaActionPerformed
 
     private void lstAnagraficaValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_lstAnagraficaValueChanged
@@ -215,11 +234,11 @@ public class WinDialogAnagrafica extends javax.swing.JDialog {
             refreshLista();
             return;
         }
-        Anagrafica a = WinGestione.listaAnagrafiche.get(index);
-        lblID.setText("" + a.getId_anagrafica());
+        Anagrafica a = this.anagrafiche.get(index);
+        lblID.setText("" + a.getId());
         txCognome.setText(a.getCognome());
         txNome.setText(a.getNome());
-        txMail.setText(a.getMail());
+        txPv.setText(a.getPv().getPv());
     }//GEN-LAST:event_lstAnagraficaValueChanged
 
     private void btnDelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDelActionPerformed
@@ -228,25 +247,19 @@ public class WinDialogAnagrafica extends javax.swing.JDialog {
         if (index == -1) { //niente di selezionato
             return;
         }
-        int id = WinGestione.listaAnagrafiche.get(index).getId_anagrafica();
-        boolean ok = true;
-        for (Corso c : WinGestione.listacorsi) {
-            if (c.isAlunno(id) == true) {
-                ok = false;
-                break;
-            }
-        }
+        Anagrafica selected = this.anagrafiche.get(index);
+        
+        boolean ok = iscrService.findByAnagrafica(selected.getId()).isEmpty();
+
         if (ok) {
             int input = JOptionPane.showConfirmDialog(null,
                     "Confermi l'eliminazione?", "ELIMINA Anagrafica", JOptionPane.OK_CANCEL_OPTION);
             if (input == 0) {
-                WinGestione.listaAnagrafiche.remove(index);
-                salvaAnagraficaCSV();
+                anagraficaService.remove(selected.getId());
                 refreshLista();
 
             }
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Alunno iscritto al corso, impossibile cancellare!");
         }
     }//GEN-LAST:event_btnDelActionPerformed
@@ -276,6 +289,8 @@ public class WinDialogAnagrafica extends javax.swing.JDialog {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(WinDialogAnagrafica.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -308,50 +323,21 @@ public class WinDialogAnagrafica extends javax.swing.JDialog {
     private javax.swing.JLabel lblMsg;
     private javax.swing.JList<String> lstAnagrafica;
     private javax.swing.JTextField txCognome;
-    private javax.swing.JTextField txMail;
     private javax.swing.JTextField txNome;
+    private javax.swing.JTextField txPv;
     // End of variables declaration//GEN-END:variables
 
     private void pulisci() {
         txCognome.setText("");
         txNome.setText("");
-        txMail.setText("");
+        txPv.setText("");
         lblID.setText("");
     }
 
     private void refreshLista() {
         DefaultListModel model = new DefaultListModel();
-        for (int i = 0; i < WinGestione.listaAnagrafiche.size(); i++) {
-            Anagrafica a = WinGestione.listaAnagrafiche.get(i);
-            String item = a.getId_anagrafica() + ") "
-                    + a.getCognome() + " " + a.getNome();
-            model.addElement(item);
-        }
+        this.anagrafiche = anagraficaService.all();
+        this.anagrafiche.forEach(model::addElement);
         lstAnagrafica.setModel(model);
-    }
-
-    private void salvaAnagraficaCSV() {
-        // recupero un corso per volta
-        // estraggo riga tipo String
-        // aggiungo riga a un testo generico che poi setto in display
-        String intestazione = "id;cognome;nome;mail\n";
-        String dati = "";
-        for (int i = 0; i < WinGestione.listaAnagrafiche.size(); i++) {
-            // recupero un corso per volta
-            Anagrafica a = WinGestione.listaAnagrafiche.get(i); //get(i) sarebbe listanagrafica[i] in un array normale;
-            String riga = a.getCSV();
-            dati += riga;
-        }
-        String txfile = intestazione + dati;
-        try {
-            // creo file anagrafica.txt
-            FileWriter myWriter = new FileWriter("/home/tss/Scuola/anagrafica.csv");
-            // ci scrivo dentro intestazione
-            myWriter.write(txfile);
-            // lo chiudo se no si blocca
-            myWriter.close();
-        } catch (Exception e) {
-            lblMsg.setText("Errore di scrittura file anagrafica.csv");
-        }
     }
 }

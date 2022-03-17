@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.ColumnResult;
@@ -76,6 +77,15 @@ public class Corso implements Serializable {
     @Column(name = "data_creazione")
     private LocalDateTime creatoIl;
 
+    public Corso() {
+    }
+
+    public Corso(String titolo, int durata, int y, int m, int d){
+        this.titolo = titolo;
+        this.durata = durata;
+        this.inizio = LocalDate.of(y, Month.of(m), d);
+    }
+    
     /*
     getter setter
      */

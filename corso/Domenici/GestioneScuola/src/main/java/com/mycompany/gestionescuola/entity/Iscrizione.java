@@ -51,6 +51,16 @@ public class Iscrizione implements Serializable {
     @JoinColumn(name = "id_corso")
     private Corso corso;
 
+    public Iscrizione() {
+    }
+
+    public Iscrizione( Anagrafica anagrafica, Corso corso) {
+        this.anagrafica = anagrafica;
+        this.corso = corso;
+        il = LocalDateTime.now();
+    }
+
+    
     /*
     getter setter
     */

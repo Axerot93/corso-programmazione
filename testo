@@ -1,13 +1,14 @@
-select t_corsi.*,
-case
-when duratacorso<sogliacorto then "corto"
+drop table if exists tmpdel;
+create table tmpdel as
+select a.id_anagrafica from
+DBScuola.t_anagrafiche a
+left join t_iscrizioni i on a.id_anagrafica=i.id_anagrafica
+left join t_docenti d on a.id_anagrafica=d.id_anagrafica
+where id_docente is null and id_iscrizione is null
 
-when duratacorso<=sogliamedio then "medio"
+order by a.id_anagrafica
+limit 2;
 
-when duratacorso<=soglialungo then "lungo"
 
-else "extra"
-
-end as classecorso
-
-from t_corsi,t_opzioni
+delete from t_anagrafiche
+where id_anagrafica in (select id_anagrafica from tmpdel)

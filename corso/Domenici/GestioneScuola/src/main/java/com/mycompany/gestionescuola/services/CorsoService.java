@@ -24,4 +24,16 @@ public class CorsoService {
                 .getResultList();
     } 
     
+    public Corso save(Corso entity){
+        em.getTransaction().begin();
+        Corso saved = em.merge(entity);
+        em.getTransaction().commit();
+        return saved;
+    }
+    
+    public void remove(Long id){
+        em.getTransaction().begin();
+        em.remove(em.find(Corso.class, id));
+        em.getTransaction().commit();
+    }
 }

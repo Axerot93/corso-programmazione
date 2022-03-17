@@ -151,14 +151,14 @@ public class WinGestione extends javax.swing.JFrame {
 
     private void btnGestioneCorsoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestioneCorsoActionPerformed
         // TODO add your handling code here:
-        //new WinDialogCorso(this, true).setVisible(true);
+        new WinDialogCorso(this, true).setVisible(true);
 
     }//GEN-LAST:event_btnGestioneCorsoActionPerformed
 
     private void btnGestAnagraficaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGestAnagraficaActionPerformed
         // TODO add your handling code here:
         // apertua finestra dialogo per caricamento e gestione anagrafica
-        //new WinDialogAnagrafica(this, true).setVisible(true);
+        new WinDialogAnagrafica(this, true).setVisible(true);
     }//GEN-LAST:event_btnGestAnagraficaActionPerformed
 
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated

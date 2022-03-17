@@ -35,6 +35,14 @@ public class Anagrafica implements Serializable {
     @JoinColumn(name = "pv")
     private Provincia pv;
 
+    public Anagrafica() {
+    }
+
+    public Anagrafica(String c, String n) {
+        this.cognome = c;
+        this.nome = n;
+    }
+
     /*
     getter setter
      */
