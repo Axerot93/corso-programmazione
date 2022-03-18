@@ -5,10 +5,17 @@
  */
 package com.mycompany.jee.start.resources;
 
+import javax.ws.rs.ApplicationPath;
+import javax.ws.rs.core.Application;
+
 /**
  *
  * @author tss
  */
-public class Configurazionerest {
+@ApplicationPath("resources")
+public class Configurazionerest extends Application{
+
+   
+
     
 }

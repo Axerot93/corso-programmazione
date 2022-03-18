@@ -1,0 +1,1 @@
+curl -X POST http://localhost:8080/jee-start-1.0-SNAPSHOT/resources/people -H 'Content-Type:application/json' -d'{"last_name":"bianchi","first_name":"alex","age":40}'
