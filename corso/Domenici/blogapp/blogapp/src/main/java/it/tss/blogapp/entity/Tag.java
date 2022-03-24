@@ -1,16 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package it.tss.blogapp.entity;
 
-import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
@@ -18,16 +13,15 @@ import javax.persistence.Table;
  * @author tss
  */
 @Entity
-@Table(name="tag")
-public class Tag extends BaseEntity implements Serializable{
-  
+@Table(name = "tag")
+public class Tag extends BaseEntity {
 
-  @Column(nullable = false)
-  private String name;
+    @Column(nullable = false)
+    private String name;
 
-   
-    
-
+    /*
+    getter setter
+     */
     public String getName() {
         return name;
     }
@@ -36,12 +30,9 @@ public class Tag extends BaseEntity implements Serializable{
         this.name = name;
     }
 
-
-
     @Override
     public String toString() {
-        return "Tag{"  + ", name=" + name + '}';
+        return "Tag{" + "id=" + id + ", name=" + name + '}';
     }
-  
-  
+
 }

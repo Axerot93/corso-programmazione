@@ -1,4 +1,4 @@
-package airhacks.service.ping.boundary;
+package it.tss.blogapp;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;

@@ -1,10 +1,11 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package it.tss.blogapp.entity;
 
+import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,26 +17,38 @@ import javax.persistence.Version;
  * @author tss
  */
 @MappedSuperclass
-public abstract class BaseEntity {
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private long id;
-  
-  @Version
-  protected long version;
+public abstract class BaseEntity  implements Serializable {
 
-    public long getId() {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    protected Long id;
+    
+    @Version
+    protected Long version;
+    /*
+    getter setter
+    */
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
-    
+
+    public Long getVersion() {
+        return version;
+    }
+
+    public void setVersion(Long version) {
+        this.version = version;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 7;
-        hash = 31 * hash + (int) (this.id ^ (this.id >>> 32));
+        int hash = 3;
+        hash = 59 * hash + Objects.hashCode(this.id);
         return hash;
     }
 
@@ -51,11 +64,9 @@ public abstract class BaseEntity {
             return false;
         }
         final BaseEntity other = (BaseEntity) obj;
-        if (this.id != other.id) {
-            return false;
-        }
-        return true;
+        return Objects.equals(this.id, other.id);
     }
-  
-  
+    
+    
+    
 }

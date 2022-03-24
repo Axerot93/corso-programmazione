@@ -1,4 +1,4 @@
-package airhacks.service;
+package it.tss.blogapp;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
