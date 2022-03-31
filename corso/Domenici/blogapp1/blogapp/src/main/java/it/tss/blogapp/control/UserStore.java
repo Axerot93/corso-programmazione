@@ -5,11 +5,9 @@
 package it.tss.blogapp.control;
 
 import it.tss.blogapp.entity.User;
-import it.tss.blogapp.control.PostStore;
 import java.util.List;
 import java.util.Optional;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
@@ -24,10 +22,7 @@ public class UserStore {
 
     @PersistenceContext
     EntityManager em;
-    
-    @Inject
-    PostStore
-    
+
     public List<User> all() {
         return em.createQuery("select e from User e order by e.lastName")
                 .getResultList();
@@ -37,17 +32,13 @@ public class UserStore {
         User found = em.find(User.class, id);
         return found == null ? Optional.empty() : Optional.of(found);
     }
-    
-    public User save(User entity){
-        return em.merge(entity);
+
+    public User save(User entity) {
+        User saved = em.merge(entity);
+        return saved;
     }
 
     public void delete(Long id) {
-     
         em.remove(em.getReference(User.class, id));
-    }
-    
-    public User update(User entity){
-        return em.merge(entity);
     }
 }

@@ -4,15 +4,14 @@
  */
 package it.tss.blogapp.control;
 
-import it.tss.blogapp.entity.User;
-import it.tss.blogapp.control.PostStore;
+import it.tss.blogapp.entity.Comment;
 import java.util.List;
 import java.util.Optional;
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import javax.ws.rs.NotFoundException;
 
 /**
  *
@@ -20,34 +19,27 @@ import javax.transaction.Transactional;
  */
 @RequestScoped
 @Transactional(Transactional.TxType.REQUIRED)
-public class UserStore {
-
+public class CommentStore {
     @PersistenceContext
     EntityManager em;
     
-    @Inject
-    PostStore
-    
-    public List<User> all() {
-        return em.createQuery("select e from User e order by e.lastName")
+    public List<Comment> byPost(Long postId){
+        return em.createQuery("select e from Comment e where e.post.id= :postId", Comment.class)
+                .setParameter("postId", postId)
                 .getResultList();
     }
-
-    public Optional<User> find(Long id) {
-        User found = em.find(User.class, id);
+    
+    public Comment save(Comment entity){
+        return em.merge(entity);
+    }
+    
+    public Optional<Comment> find(Long id){
+        Comment found = em.find(Comment.class, id);
         return found == null ? Optional.empty() : Optional.of(found);
     }
     
-    public User save(User entity){
-        return em.merge(entity);
-    }
-
-    public void delete(Long id) {
-     
-        em.remove(em.getReference(User.class, id));
-    }
-    
-    public User update(User entity){
-        return em.merge(entity);
+    public void delete(Long id){
+        Comment found = find(id).orElseThrow(() -> new NotFoundException());
+        em.remove(found);
     }
 }
