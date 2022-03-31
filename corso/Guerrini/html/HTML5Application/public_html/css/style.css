@@ -1,0 +1,24 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : 31 mar 2022, 14:32:00
+    Author     : tss
+*/
+
+h1{
+    color:#494b7e;
+}
+
+#titolo{
+    font-family: Verdana;
+}
+.sfondoy{
+    background-color: yellow;
+}
+
+ span {
+                font-size: 15px;
+                color: fuchsia;
+            }
