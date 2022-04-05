@@ -9,6 +9,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
 
 h1{
     color:#494b7e;
+    text-align: center;
 }
 
 #titolo{
@@ -18,7 +19,77 @@ h1{
     background-color: yellow;
 }
 
- span {
-                font-size: 15px;
-                color: fuchsia;
-            }
+#main span {
+    font-size: 15px;
+    color: fuchsia;
+}
+table{
+    width: 100%;
+    margin:0px;
+    padding:0px;
+    text-align: center;
+}
+.info p img {
+    float:left;
+    max-width: 300px;
+}
+.info p{
+    overflow:auto;
+}
+/*larghezza prima colonna della tabella dati*/
+
+.dati th{
+    width:50%;
+}
+.divgallery{
+    overflow:auto;
+}
+
+.itemgallery{
+        float:left;
+        width: 33.33%;
+        padding: 0px;
+        border: 0px
+    }
+    .itemgallery img{
+        width: 100%;
+        padding: 0px;
+        border:0px;
+    }
+    form{
+        background-color: lightgray;
+    }
+
+
+@media screen and (max-width: 480px){
+
+    .itemgallery{
+        float:none;
+        width: 100%;
+        padding: 0px;
+        border: 0px
+    }
+    .itemgallery img{
+        width: 95%;
+        padding: 0px;
+        border:0px;
+        margin-bottom: -5px
+    }
+    .info p img {
+    float:none;
+    max-width: 480px;}
+
+    h2{
+        font-size: 22px;
+    }
+    h1{
+        font-size: 25px;
+    }
+    h3{
+        font-size: 16px;
+    }
+
+
+}
+
+
