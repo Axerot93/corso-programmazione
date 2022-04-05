@@ -4,11 +4,15 @@
  */
 package it.tss.blogapp.boundary;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  *
  * @author tss
  */
-
-public class PingResource {
-    
+public class Credential {
+    @NotBlank
+    public String usr;
+    @NotBlank
+    public String pwd;
 }

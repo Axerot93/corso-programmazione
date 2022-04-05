@@ -1,0 +1,9 @@
+microprofile crea piccoli servizi che si occupano di piccoli aspetti dell'applicativo.
+In microprofile ci sono delle funzioni che in jakarta EE  non ci sono e che sono molto utili.
+Metrics permette di avere informazione sulla performance dellla applicazione
+Per utilizzare micropprofile con wildfly bisogna cambiare lo standalone da full a microprofile (già fatto)
+una volta fatto clean and build e riavviato il prggetto, nel path mettere localhost:8080/openapi salva un file di testo in cui vengono indicate le varie configurazione dei servizi rest che abbiamo fatto(ti trovi il file salvato in scaricati).
+Per modificare i rest con openapi bisogna abilitare openapi su wildfly,e poi seguire le indicazioni del primo link dato dal proff.
+Sul pc ti ho aggiunto swagger che serve a creare un interfaccia.
+http://localhost:8080/blogapp/resources/openapi-ui apre l'interfaccia creata da swagger analizzando il progetto
+

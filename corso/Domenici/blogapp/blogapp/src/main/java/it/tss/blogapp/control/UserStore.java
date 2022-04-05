@@ -4,14 +4,18 @@
  */
 package it.tss.blogapp.control;
 
+import it.tss.blogapp.SecurityEncoding;
+import it.tss.blogapp.boundary.Credential;
 import it.tss.blogapp.entity.User;
-import it.tss.blogapp.control.PostStore;
 import java.util.List;
 import java.util.Optional;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
 /**
@@ -24,12 +28,31 @@ public class UserStore {
 
     @PersistenceContext
     EntityManager em;
-    
+
     @Inject
-    PostStore
-    
+    PostStore postStore;
+
+    /**
+     * restituisce tutti gli utenti presenti nel database
+     *
+     * @return lista oggetti User
+     */
     public List<User> all() {
-        return em.createQuery("select e from User e order by e.lastName")
+        return em.createQuery("select e from User e order by e.lastName", User.class)
+                .getResultList();
+    }
+
+    /**
+     * restituisce tutti gli utenti presenti nel database in modo paginato
+     *
+     * @param page numero di pagina
+     * @param size dimensioni pagina
+     * @return lista oggetti User
+     */
+    public List<User> allPaginated(int page, int size) {
+        return em.createQuery("select e from User e order by e.lastName", User.class)
+                .setFirstResult((page - 1) * size)
+                .setMaxResults(size)
                 .getResultList();
     }
 
@@ -37,17 +60,30 @@ public class UserStore {
         User found = em.find(User.class, id);
         return found == null ? Optional.empty() : Optional.of(found);
     }
-    
-    public User save(User entity){
-        return em.merge(entity);
+
+    public User create(User entity) {
+        entity.setPwd(SecurityEncoding.shaHash(entity.getPwd()));
+        return save(entity);
+    }
+
+    public User save(User entity) {
+        User saved = em.merge(entity);
+        return saved;
     }
 
     public void delete(Long id) {
-     
+        postStore.deleteByUser(id);
         em.remove(em.getReference(User.class, id));
     }
-    
-    public User update(User entity){
-        return em.merge(entity);
+
+    public Optional<User> login(Credential credential) {
+        try {
+            return Optional.of(em.createQuery("select e from User e where e.email= :usr and e.pwd= :pwd", User.class)
+                    .setParameter("usr", credential.usr)
+                    .setParameter("pwd", SecurityEncoding.shaHash(credential.pwd))
+                    .getSingleResult());
+        } catch (NoResultException ex) {
+            return Optional.empty();
+        }
     }
 }

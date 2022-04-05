@@ -4,9 +4,8 @@
  */
 package it.tss.blogapp.entity;
 
-import it.tss.blogapp.adapter.UserTypeAdapter;
-import it.tss.blogapp.adapter.PostTypeAdapter;
-import javax.json.bind.annotation.JsonbAnnotation;
+import it.tss.blogapp.adapters.UserTypeAdapter;
+import it.tss.blogapp.adapters.PostTypeAdapter;
 import javax.json.bind.annotation.JsonbTypeAdapter;
 import javax.persistence.Column;
 import javax.persistence.Entity;

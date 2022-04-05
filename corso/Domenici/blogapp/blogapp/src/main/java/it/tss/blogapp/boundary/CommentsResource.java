@@ -4,12 +4,10 @@
  */
 package it.tss.blogapp.boundary;
 
-
-
-import it.tss.blogapp.control.TagStore;
-import it.tss.blogapp.entity.Tag;
+import it.tss.blogapp.entity.Comment;
+import it.tss.blogapp.entity.Comment;
+import it.tss.blogapp.entity.User;
 import java.util.List;
-import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -21,47 +19,36 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 
 /**
  *
  * @author tss
  */
-@Path("/tag")
-public class TagResource {
-
-    @Inject
-    private TagStore tag;
-
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Tag> all() {
-        return tag.all();
-    }
-
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void create(@Valid Tag entity) {
-        tag.save(entity);
-    }
+@Path("/comments")
+@Tag(name = "Gestione Comments", description = "Permetti ad ogni utente di gestire i propri commenti")
+public class CommentsResource {
 
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Tag find(@PathParam("id") Long id) {
-        return tag.find(id).orElseThrow(() -> new NotFoundException("Tag non trovato. id=" + id));
+    public Comment find(@PathParam("id") Long id) {
+        throw new UnsupportedOperationException();
+    }
+
+    @PUT
+    @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Comment update(@PathParam("id") Long id, @Valid Comment entity) {
+        throw new UnsupportedOperationException();
     }
 
     @DELETE
     @Path("{id}")
+    @Produces(MediaType.APPLICATION_JSON)
     public void delete(@PathParam("id") Long id) {
-        Tag found = tag.find(id).orElseThrow(() -> new NotFoundException("Tag non trovato. id=" + id));
-        tag.delete(found.getId());
+        throw new UnsupportedOperationException();
     }
 
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void update(@Valid Tag entity) {
-        tag.update(entity);
-    }
 }
-

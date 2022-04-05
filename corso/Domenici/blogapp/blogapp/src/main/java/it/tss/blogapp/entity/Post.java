@@ -4,11 +4,13 @@
  */
 package it.tss.blogapp.entity;
 
-import it.tss.blogapp.adapter.UserTypeAdapter;
-import it.tss.blogapp.boundary.PostResource;
+import it.tss.blogapp.adapters.UserTypeAdapter;
+import it.tss.blogapp.boundary.PostsResource;
 import it.tss.blogapp.boundary.UsersResource;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Set;
+import java.util.TreeSet;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.bind.annotation.JsonbTransient;
@@ -32,7 +34,7 @@ public class Post extends BaseEntity {
 
     @Column(nullable = false)
     private LocalDateTime created = LocalDateTime.now();
-    
+
     @JsonbTypeAdapter(UserTypeAdapter.class)
     @ManyToOne(optional = false)
     private User author;
@@ -49,18 +51,14 @@ public class Post extends BaseEntity {
             joinColumns = @JoinColumn(name = "post_id"),
             inverseJoinColumns = @JoinColumn(name = "tag_id")
     )
-    private Set<Tag> tags;
-    
-    public JsonObject toJsonSlice() {
+    private Set<Tag> tags = new TreeSet<>();
 
+    public JsonObject toJsonSlice() {
         return Json.createObjectBuilder()
                 .add("id", this.id)
-                .add("link", UriBuilder.fromResource(PostResource.class)
-                        .path(PostResource.class, "find")
-                        .build(this.id).toString())
+                .add("title", this.title)
                 .build();
     }
-
 
     /*
     getter setter
@@ -102,9 +100,14 @@ public class Post extends BaseEntity {
         return tags;
     }
 
-    @JsonbTransient
     public void setTags(Set<Tag> tags) {
         this.tags = tags;
+    }
+
+    public String getLink() {
+        return UriBuilder.fromResource(PostsResource.class)
+                .path(PostsResource.class, "find")
+                .build(this.id).toString();
     }
 
     @Override

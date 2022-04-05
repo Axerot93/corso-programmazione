@@ -5,11 +5,17 @@
 package it.tss.blogapp.entity;
 
 import it.tss.blogapp.boundary.UsersResource;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 import javax.json.Json;
 import javax.json.JsonObject;
 import javax.json.bind.annotation.JsonbProperty;
+import javax.json.bind.annotation.JsonbTransient;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -37,7 +43,7 @@ public class User extends BaseEntity {
 
     @NotBlank
     @Email
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String email;
 
     @NotBlank
@@ -45,6 +51,11 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private String pwd;
 
+    /*
+    associazione inversa
+    @OneToMany(mappedBy = "author")
+    private List<Post> posts = new ArrayList<>();
+     */
     public JsonObject toJsonSlice() {
 
         return Json.createObjectBuilder()
@@ -90,6 +101,16 @@ public class User extends BaseEntity {
         this.pwd = pwd;
     }
 
+    /*
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
+    }
+     */
+    
     @Override
     public String toString() {
         return "User{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", pwd=" + pwd + '}';
