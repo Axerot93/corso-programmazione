@@ -1,0 +1,54 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : 7 apr 2022, 16:08:09
+    Author     : tss
+*/
+*{
+    margin: 0px;
+    border: 0px;
+    padding: 0px;
+    outline: 0px;
+    border-collapse: collapse;
+    box-sizing: border-box;
+    letter-spacing: 0px;
+    font-family: verdana;
+}
+.h1{
+    color:#494b7e;
+    text-align: center;
+    
+}
+.head menu{
+    display: inline;
+    background-color: black;
+}
+.info p img {
+    float:left;
+    max-width: 300px;
+}
+.info p{
+    overflow:auto;
+}
+div.servizi{
+    background-color: red;
+}
+div.divertimento{
+    background-color: yellow;
+}
+
+.fondo img{
+    display: inline;
+}
+.fondo img{
+    display: inline;
+}
+.fondo span{
+    display: inline
+    
+}
+
+
+    
