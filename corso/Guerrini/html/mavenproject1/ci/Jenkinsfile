@@ -1,0 +1,101 @@
+pipeline {
+    agent {
+        label 'maven'
+    }
+
+    environment {
+        VERSION = readMavenPom().getVersion()
+        APPNAME = readMavenPom().getArtifactId().toLowerCase()
+        DEVENV = "${APPNAME}-dev"
+        TESTENV = "${APPNAME}-test"
+    }
+
+    stages {
+        stage('Build') {
+            steps {
+                sh './mvnw clean install -DskipTests'
+            }
+        }
+
+        stage('Unit Tests') {
+            steps {
+                sh './mvnw test'
+            }
+        }
+
+        stage('Configure DEV Environment') {
+            steps {
+                script {
+                    openshift.withCluster() {
+                        openshift.withProject("${DEVENV}") {
+                            openshift.apply("-f k8s/dev/buildconfig.yaml")
+                            openshift.apply("-f k8s/dev/deployconfig.yaml")
+                            openshift.apply("-f k8s/dev/service.yaml")
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Deploy to DEV') {
+            steps {
+                script {
+                    openshift.withCluster() {
+                        openshift.withProject("${DEVENV}") {
+                            def buildConfig = openshift.selector("bc", APPNAME);
+                            def build = buildConfig.startBuild("--from-dir .");
+
+                            build.logs("-f");
+                            openshift.tag("${DEVENV}/${APPNAME}:latest", "${DEVENV}/${APPNAME}:${VERSION}")
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Promote to TEST?') {
+            steps {
+                timeout(time: 30, unit: 'DAYS'){
+                    input message: "Promote to Test?"
+                }
+            }
+        }
+
+        stage('Configure TEST Environment') {
+            steps {
+                script {
+                    openshift.withCluster() {
+                        openshift.withProject("${TESTENV}") {
+                            openshift.apply("-f k8s/test/deployconfig.yaml")
+                            openshift.apply("-f k8s/test/service.yaml")
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Promote to TEST') {
+            steps {
+                script {
+                    openshift.withCluster() {
+                        openshift.withProject("${TESTENV}") {
+                            openshift.tag("${DEVENV}/${APPNAME}:${VERSION}", "${TESTENV}/${APPNAME}:latest")
+                            openshift.tag("${DEVENV}/${APPNAME}:${VERSION}", "${TESTENV}/${APPNAME}:${VERSION}")
+
+
+                           def dc = openshift.selector('dc', "${APPNAME}")
+                           // Wait until the desired replicas are available
+                           dc.rollout().status()
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Run Integration tests') {
+            steps {
+                sh './mvnw failsafe:integration-test failsafe:verify'
+            }
+        }
+    }
+}

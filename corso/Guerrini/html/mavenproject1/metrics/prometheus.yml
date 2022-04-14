@@ -1,0 +1,32 @@
+# my global config
+global:
+  scrape_interval:     5s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 5s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+rule_files:
+# - "first.rules"
+# - "second.rules"
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'payara'
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ['docker.for.mac.localhost:8080'] # Use this for MAC
+      - targets: ['docker.for.win.localhost:8080'] # Use this for WIN
+      - targets: ['localhost:8080'] # Use this for LINUX
+
+  - job_name: 'openliberty'
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.w
+
+    static_configs:
+      - targets: ['docker.for.mac.localhost:9080'] # Use this for MAC
+      - targets: ['docker.for.win.localhost:9080'] # Use this for WIN
+      - targets: ['localhost:9080'] # Use this for LINUX

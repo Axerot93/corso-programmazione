@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<server description="${env.SERVER_DESC}">
+
+    <!-- Enable features -->
+    <featureManager>
+        <feature>microProfile-3.0</feature>
+        <feature>javaee-8.0</feature>
+    </featureManager>
+
+    <httpEndpoint id="defaultHttpEndpoint" host="*" httpPort="${HTTP_PORT}" httpsPort="${HTTPS_PORT}" />
+
+    <!-- Automatically expand WAR files and EAR files -->
+    <applicationManager autoExpand="true" />
+    <applicationMonitor dropins="dropins" dropinsEnabled="true" pollingRate="500ms" updateTrigger="polled" />
+</server>

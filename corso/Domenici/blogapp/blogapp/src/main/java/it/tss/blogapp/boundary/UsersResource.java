@@ -87,9 +87,9 @@ public class UsersResource {
     @Produces(MediaType.APPLICATION_JSON)
     @PermitAll
     public JsonObject login(@Valid Credential credential) {
-        User u = store.login(credential).orElseThrow(() -> new NotAuthorizedException(
+        var u = store.login(credential).orElseThrow(() -> new NotAuthorizedException(
                 Response.status(Response.Status.UNAUTHORIZED).build()));
-        String jwt = jwtManager.generate(u);
+        var jwt = jwtManager.generate(u);
         return Json.createObjectBuilder()
                 .add("jwt", jwt)
                 .build();
@@ -136,13 +136,13 @@ public class UsersResource {
     @Path("{id}")
     @RolesAllowed("users")
     public UserResource find(@PathParam("id") Long id) {
-        if(Long.parseLong(token.getSubject()) != id){
+        if (Long.parseLong(token.getSubject()) != id) {
+            System.out.println("id utente non corrispondente");
             throw new ForbiddenException();
         }
         UserResource sub = rc.getResource(UserResource.class);
         sub.setId(id);
         return sub;
     }
-
 
 }

@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: BuildConfig
+metadata:
+  labels:
+    app: #CHANGE THIS
+    env: DEV-and-TEST
+  name: #ADD NAME OF PIPELINE
+spec:
+  nodeSelector: {}
+  output: {}
+  postCommit: {}
+  resources:
+    requests:
+      cpu: 500Mi
+      memory: 500M
+  runPolicy: SerialLatestOnly
+  source:
+    git:
+      ref: develop
+      uri: #ADD SOURCE CODE URL HERE
+    type: Git
+  strategy:
+    jenkinsPipelineStrategy:
+      jenkinsfilePath: ci/Jenkinsfile
+      env:
+        - name: SERVICE_URL
+          value: #OPTIONAL: ADD TEST-ENV ROUTE HERE FOR INTEGRATION TESTS
+    type: JenkinsPipeline

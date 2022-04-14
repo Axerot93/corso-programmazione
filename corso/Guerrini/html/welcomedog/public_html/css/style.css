@@ -36,7 +36,7 @@ div.servizi{
     background-color: red;
 }
 div.divertimento{
-    background-color: yellow;
+    background-color: orangered;
 }
 
 .fondo img{
@@ -47,6 +47,9 @@ div.divertimento{
 }
 .fondo span{
     display: inline
+        footer{
+        background-color: peru
+    }
     
 }
 

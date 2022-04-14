@@ -1,0 +1,45 @@
+pipeline {
+    agent {
+        label 'maven'
+    }
+
+    environment {
+        VERSION = readMavenPom().getVersion()
+        APPNAME = readMavenPom().getArtifactId().toLowerCase()
+        TESTENV = "${APPNAME}-test"
+        PRODENV = "${APPNAME}-prod"
+    }
+
+    stages {
+
+        stage('Configure PROD Environment') {
+            steps {
+                script {
+                    openshift.withCluster() {
+                        openshift.withProject("${PRODENV}") {
+                            openshift.apply("-f k8s/prod/deployconfig.yaml")
+                            openshift.apply("-f k8s/prod/service.yaml")
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('Promote to PROD') {
+            steps {
+                script {
+                    openshift.withCluster() {
+                        openshift.withProject("${PRODENV}") {
+                            openshift.tag("${TESTENV}/${APPNAME}:${VERSION}", "${PRODENV}/${APPNAME}:latest")
+                            openshift.tag("${TESTENV}/${APPNAME}:${VERSION}", "${PRODENV}/${APPNAME}:${VERSION}")
+
+                           def dc = openshift.selector('dc', "${APPNAME}")
+                           // Wait until the desired replicas are available
+                           dc.rollout().status()
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
