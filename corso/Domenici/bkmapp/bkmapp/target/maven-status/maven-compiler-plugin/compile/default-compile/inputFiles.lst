@@ -1,0 +1,16 @@
+/home/tss/Documenti/corso-programmazione/corso/Domenici/bkmapp/bkmapp/src/main/java/bkm/adapters/UserTypeAdapter.java
+/home/tss/Documenti/corso-programmazione/corso/Domenici/bkmapp/bkmapp/src/main/java/airhacks/service/JAXRSConfiguration.java
+/home/tss/Documenti/corso-programmazione/corso/Domenici/bkmapp/bkmapp/src/main/java/bkm/entity/User.java
+/home/tss/Documenti/corso-programmazione/corso/Domenici/bkmapp/bkmapp/src/main/java/bkm/security/JwtTokenException.java
+/home/tss/Documenti/corso-programmazione/corso/Domenici/bkmapp/bkmapp/src/main/java/bkm/security/SecurityEncoding.java
+/home/tss/Documenti/corso-programmazione/corso/Domenici/bkmapp/bkmapp/src/main/java/bkm/security/JWTManager.java
+/home/tss/Documenti/corso-programmazione/corso/Domenici/bkmapp/bkmapp/src/main/java/bkm/control/BookStore.java
+/home/tss/Documenti/corso-programmazione/corso/Domenici/bkmapp/bkmapp/src/main/java/bkm/entity/Book.java
+/home/tss/Documenti/corso-programmazione/corso/Domenici/bkmapp/bkmapp/src/main/java/bkm/entity/BaseEntity.java
+/home/tss/Documenti/corso-programmazione/corso/Domenici/bkmapp/bkmapp/src/main/java/bkm/boundary/UsersResource.java
+/home/tss/Documenti/corso-programmazione/corso/Domenici/bkmapp/bkmapp/src/main/java/bkm/boundary/BookResource.java
+/home/tss/Documenti/corso-programmazione/corso/Domenici/bkmapp/bkmapp/src/main/java/bkm/boundary/Credential.java
+/home/tss/Documenti/corso-programmazione/corso/Domenici/bkmapp/bkmapp/src/main/java/bkm/entity/Tag.java
+/home/tss/Documenti/corso-programmazione/corso/Domenici/bkmapp/bkmapp/src/main/java/bkm/control/TagStore.java
+/home/tss/Documenti/corso-programmazione/corso/Domenici/bkmapp/bkmapp/src/main/java/bkm/control/UserStore.java
+/home/tss/Documenti/corso-programmazione/corso/Domenici/bkmapp/bkmapp/src/main/java/airhacks/service/ping/boundary/PingResource.java

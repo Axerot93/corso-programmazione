@@ -1,0 +1,11 @@
+su root
+
+mysql -u root -p
+
+MariaDB [(none)]> create user 'bkmapp' @'%' identified by 'bkmapp';
+
+MariaDB [(none)]> grant all privileges on bkmapp.* to 'bkmapp' @localhost identified by 'bkmapp';
+
+MariaDB [(none)]> flush privileges;
+
+
