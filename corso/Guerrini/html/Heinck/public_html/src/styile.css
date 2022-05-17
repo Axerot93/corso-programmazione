@@ -1,0 +1,82 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : 17 mag 2022, 09:30:38
+    Author     : tss
+*/
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    margin-right: -4px;
+}
+div,ul{
+    margin: 20px;
+    padding: 20px;
+}
+
+.fullrow{
+    width: 100%;
+}
+body{
+    background-color: lightblue;
+}
+
+footer{
+
+    background-color: darkblue;
+    color:lightgray;
+
+}
+footer{
+    width: 100%;
+    display: grid;
+    grid-template-columns: auto auto
+
+}
+
+
+.grid-container{
+    display: grid;
+    grid-template-columns: 33.333% 33.333% 33.333%;
+    gap:0px;
+    padding: 0px;
+    margin: 0px;
+    width:100%
+}
+
+.grid-container > img{
+    padding: 0px;
+    margin: 0px;
+}
+#grid div {
+    margin: 0px;
+    padding:  0px;
+    margin-bottom: -4px;
+
+}
+#grid img {
+    width:100%;
+
+
+}
+@media screen and (max-width:768px){
+    footer{
+        grid-template-columns: auto;
+    }
+    .grid-container{
+        grid-template-columns: auto;
+    }
+}
+@media screen and (max-width:480px){
+
+    footer{
+        grid-template-columns: auto;
+    }
+    .grid-container{
+        grid-template-columns: auto;
+
+    }
+}

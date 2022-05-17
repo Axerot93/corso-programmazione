@@ -61,9 +61,6 @@ public class User extends BaseEntity {
 
         return Json.createObjectBuilder()
                 .add("id", this.id)
-                .add("link", UriBuilder.fromResource(UsersResource.class)
-                        .path(UsersResource.class, "find")
-                        .build(this.id).toString())
                 .build();
     }
 

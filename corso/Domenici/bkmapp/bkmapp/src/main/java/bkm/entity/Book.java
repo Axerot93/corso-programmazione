@@ -4,10 +4,12 @@
  */
 package bkm.entity;
 
+import bkm.adapters.UserTypeAdapter;
 import java.time.LocalDateTime;
 import java.util.Set;
 import java.util.TreeSet;
 import javax.json.bind.annotation.JsonbTransient;
+import javax.json.bind.annotation.JsonbTypeAdapter;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -24,6 +26,7 @@ import javax.persistence.Table;
 @Table(name = "book")
 public class Book extends BaseEntity {
 
+    @JsonbTransient
     @Column(nullable = false)
     private LocalDateTime datacreazione = LocalDateTime.now();
 
@@ -44,9 +47,12 @@ public class Book extends BaseEntity {
     @Column(nullable = false)
     private boolean condiviso;
 
+    @JsonbTypeAdapter(UserTypeAdapter.class)
     @ManyToOne(optional = false)
     private User utente;
+    
 
+    //getter and setter
     public LocalDateTime getDatacreazione() {
         return datacreazione;
     }
@@ -95,6 +101,7 @@ public class Book extends BaseEntity {
     public void setUtente(User utente) {
         this.utente = utente;
     }
+    //to string
 
     @Override
     public String toString() {

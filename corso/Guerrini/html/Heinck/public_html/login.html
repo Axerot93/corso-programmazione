@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Login</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body ng-app="myApp">
+    <div class="container">
+
+        <h2>Utente collegato:<span ng-model="loggedusr" ng-init="loggedusr= 'nessuno'"></span></h2>
+        <form name="flogin" ng-controller="loginCtrl">
+            <div class="form-group">
+                Usr:
+                <input ng-model="usr" type="text" class="form-control" id="email" placeholder="Enter username"
+                    name="usr" required />
+                <span ng-show="flogin.usr.$error.required">campo richiesto</span>
+            </div>
+            <div class="form-group">
+                <label for="pwd">Password:</label>
+                <input ng-model="pwd" type="password" class="form-control" id="pwd" placeholder="Enter password"
+                    name="pwd" required />
+                <span ng-show="flogin.pwd.$error.required">campo richiesto</span>
+            </div>
+            <input type="button" ng-disabled="flogin.usr.$dirty && flogin.usr.$invalid || 
+            flogin.pwd.$dirty && flogin.pwd.$invalid" ng-click="login()" class="btn btn-primary" value="Submit">
+        </form>
+    </div>
+        <div class="container signin">
+    <p>Non hai un account account? <a href="registrazione.html">Registrati!</a>.</p>
+  </div>
+    </body>
+</html>
+
+<script>
+    function init(){
+
+        let usr = sessionStorage.getItem("id");
+        let token = sessionStorage.getItem("token");
+
+        if (usr){
+            document.querySelector("#loggeduser").innerHTML = usr;
+        }
+
+    }
+
+    function getBkms(){
+        let nfile = "https://bkmapp.tssdev.it/resources/bkms";
+        fetch (nfile)
+            .then(ris => ris.json())
+            .then(jobj => {
+               
+
+                let f1 = "description";
+
+                let arbkm =jobj.data;
+
+                let table = "<table>";
+                    table += "<tr><td> Campo1 </td><td> Campo2 </tr></td>";
+
+                for (bkm of arbkm){
+                   
+                    let row = "<tr><td>" + bkm.description + bkm[f1] + "</td><td>" + bkm.link + "</tr></td>";
+                   
+                    table += row;
+                }
+
+                table += "</table>";
+
+                document.querySelector("#divbkms").innerHTML = table;
+
+            });
+
+    }
+
+    function doLogin() {
+
+        let url = "https://bkmapp.tssdev.it/resources/users/login";
+
+        let usr = document.querySelector("#usr").value;
+        let pwd = document.querySelector("#pwd").value;
+
+        let postdata = {
+            "usr" : usr,
+            "pwd" : pwd
+        };
+
+        postdata = JSON.stringify(postdata);
+
+        fetch(url,
+            {
+                method: "post",
+                body: postdata,
+                headers: {
+                    "Accept": "application/json",
+                    "Content-type":"application/json"
+                }
+            })
+            .then(response => {
+                if(response.status ===401){
+                    alert("User o Password errata");
+                }
+                else return response.json();
+            })
+            .then(jsobj => {
+                    if(jsobj !== undefined || true){
+                        sessionStorage.setItem("token", jsobj.jwt);
+                        console.log("jwt:" + sessionStorage.getItem("token"));
+
+                        let decoded = jwt_decode(sessionStorage.getItem("token"));
+                        sessionStorage.setItem("name", decoded.upn);
+                        sessionStorage.setItem("id", decoded.sub);
+                        document.querySelector("#loggeduser").innerHTML = sessionStorage.getItem("name");
+
+                    }
+            }).catch(error => {
+                console.log(error);
+                document.querySelector("#loggeduser").innerHTML = " nessuno uttente";
+            });
+
+    }
+
+    function doLogout(){
+
+        sessionStorage.removeItem("token");
+        sessionStorage.removeItem("id");
+        sessionStorage.clear();
+
+        window.location.href = "index.html";
+
+    }
+
+    function doBkm(){
+
+
+        let url = "https://bkmapp.tssdev.it/resources/users/";
+
+        url += sessionStorage.getItem("id") + "/bkms";
+
+        let descrizione = document.querySelector("#description").value;
+        let shared = document.querySelector("#shared").value;
+        let urllink = document.querySelector("#url").value;
+        let s = false;
+
+        if (shared === "true"){
+            s = true;
+        }
+
+        let postdata = {
+            "description" : descrizione,
+            "shared" : s,
+            "url" : urllink
+        };
+
+        postdata = JSON.stringify(postdata);
+
+        fetch(url,
+            {
+                method: "post",
+                body: postdata,
+                headers: {
+                    "Accept": "application/json",
+                    "Content-type":"application/json",
+                    'Authorization': 'Bearer ' + sessionStorage.getItem("token")
+                }
+            })
+            .then(response => {
+                if(response.status ===401){
+                    alert("No Authorization for read Bkms");
+                }
+                else return response.json();
+            })
+            .then(jsobj => {
+                    if(jsobj !== undefined || true){
+                       
+                        console.log(jsobj);
+                    }
+            }).catch(error => {
+                console.log(error);
+                document.querySelector("#loggeduser").innerHTML = " nessuno uttente";
+            });
+
+
+    }
+    </script>
+
+

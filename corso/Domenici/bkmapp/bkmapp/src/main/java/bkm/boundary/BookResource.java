@@ -11,7 +11,9 @@ import bkm.entity.Tag;
 import bkm.entity.User;
 import java.util.List;
 import java.util.Set;
+import javax.annotation.security.DenyAll;
 import javax.annotation.security.PermitAll;
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
@@ -40,6 +42,7 @@ import org.eclipse.microprofile.openapi.annotations.responses.APIResponses;
 @org.eclipse.microprofile.openapi.annotations.tags.Tag(
         name = "Gestione Books", description = "Permetti ad ogni utente di gestire i propri Books"
 )
+@DenyAll
 public class BookResource {
     @Inject
     BookStore store;
@@ -48,14 +51,9 @@ public class BookResource {
     TagStore tagStore;
     
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public List<Book> all() {
-        return store.all();
-    }
-
-    @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("users")
     public List <Book> find(@PathParam("id") Long id) {
         return store.byUser(id);
     }
@@ -64,6 +62,7 @@ public class BookResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
+    @RolesAllowed("users")
     public Book update(@PathParam("id") Long id, @Valid Book entity) {
         return store.save(entity);
     }
@@ -71,6 +70,7 @@ public class BookResource {
     @DELETE
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed("users")
     public void delete(@PathParam("id") Long id) {
         throw new UnsupportedOperationException();
     }
@@ -82,12 +82,20 @@ public class BookResource {
     @APIResponses({
         @APIResponse(responseCode = "201", description = "book creato con successo")
     })
-    @PermitAll
+    @RolesAllowed("users")   
     public Response create(@Valid Book entity) {
         Book saved = store.save(entity);
         return Response.status(Response.Status.CREATED)
                 .entity(saved)
                 .build();
+    }
+    
+     @PATCH
+    @Path("{id}/tags")
+    @Consumes(MediaType.TEXT_PLAIN)
+    public void addTag(@PathParam("id") Long id, @NotBlank String tag) {
+        Book found = store.find(id).orElseThrow(() -> new NotFoundException());
+        store.addTag(found,tag);
     }
 
   }

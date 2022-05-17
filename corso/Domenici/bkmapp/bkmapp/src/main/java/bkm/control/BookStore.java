@@ -39,7 +39,7 @@ public class BookStore {
     }
 
     public List<Book> byUser(Long userId) {
-        return em.createQuery("select e from Book e where e.utente.id= :userId order by e.datacreazione DESC", Book.class)
+        return em.createQuery("select e from Book e where (e.utente.id= :userId) or (e.utente.id <> :userId and e.condiviso order = true) by e.datacreazione DESC", Book.class)
                 .setParameter("userId", userId)
                 .getResultList();
     }

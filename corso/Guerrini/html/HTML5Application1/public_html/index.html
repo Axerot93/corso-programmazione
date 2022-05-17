@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Prova html5</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="js/script.js"></script> 
+         <link rel="stylesheet" href="js/script.js">
+        
+        <style>
+            * {
+
+                font-face{
+                font-family: titolo;
+                src:url("fonts/sacramento-regoular.tff");
+
+
+            }
+
+        </style>
+       <link rel="stylesheet" href="css/style.css"/> 
+
+    </head>
+    <body>
+        <header>
+            <h1>header testata Londra</h1>
+        </header>
+        <div id="main">
+            <div class="divgallery">
+                <div class="itemgallery">
+                    <img src="img/London.jpeg" alt="alt"/>
+                </div>   
+                <div class="itemgallery">
+                    <img src="img/Paris.jpeg" alt="alt"/>
+                </div>   
+                <div class="itemgallery">
+                    <img src="img/firenze.jpeg" alt="alt"/>
+                </div>   
+
+
+            </div>
+            <div id="contatto">
+                <form method="get"id= "fcontatti" action="#">
+                    <input id="tmail" required name="mail" placeholder="inserire indirizzo e-mail"> <br>
+                    <input id="tpwd" type="password" required name="pwd" placeholder="inserire password"> <br>
+                    <input id="tnominativo" name="nome" placeholder="inserire nome e cognome"> <br>
+                    <input id="tanno" min= "1990" max= "2027"type="number" name="anno" placeholder="inserire anno"> <br>
+                    <input id="tanno" min= "1990" max= "2027"type="range" name="anno" placeholder="inserire anno"> <br>
+                    <input id="tdata" min= "1990" max= "2027"type="date" name="data" placeholder="inserire anno"> <br>
+                    sesso <br> maschio<input type="radio" name="sex" value="maschio"><br>
+                    femmina<input type="radio" name="sex" value="femmina"><br>
+                    sesso ceck<br> maschio<input type="checkbox" name="sex" value="maschio"><br>
+                    femmina<input type="checkbox" name="sex" value="femmina"><br>
+                    <textarea id="tcommento" name="commento" rows="5" cols="100"placeholder="ins. commento"></textarea><br>
+                    <select id="spv" name="pv" size="4">
+                        <option value = "TO" > Torino</option>
+                        <option value = "AL" > Alessandria</option>
+                        <option value = "AT" >Asti</option>
+                        <option value = "TO" >Torino</option>
+                        <option value = "AL" >Alessandria</option>
+                        <option value = "AT" >Asti</option>
+
+                    </select>
+                    <input type="button" id="buttonok"value="OK!"><br>
+                    <input type="submit" id="invia"value="invia"><br>
+
+                </form>
+            </div>
+            <div class="info">
+                <h2>Descrizione Londra
+                </h2>
+                <p>   
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Phasellus cursus, 
+                    felis sed vehicula eleifend, ligula ante ullamcorper justo, 
+                    nec vehicula mi massa ac massa. 
+                    Morbi malesuada arcu eu metus laoreet pretium. 
+                    Donec pharetra gravida ipsum non congue. 
+                    Aenean et massa urna. Integer rutrum, 
+                    massa sit amet eleifend eleifend, elit diam porttitor dolor,
+                    vel porta nisi velit facilisis lorem. 
+                    Sed dolor magna, malesuada nec sapien at, 
+                    rutrum luctus magna. 
+                    Fusce pellentesque vel nisi at volutpat. 
+                </p>
+            </div>
+            <div class="info">
+                <h2>Descrizione Parigi
+                </h2>
+                <p>   
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Phasellus cursus, 
+                    felis sed vehicula eleifend, ligula ante ullamcorper justo, 
+                    nec vehicula mi massa ac massa. 
+                    Morbi malesuada arcu eu metus laoreet pretium. 
+                    Donec pharetra gravida ipsum non congue. 
+                    Aenean et massa urna. Integer rutrum, 
+                    massa sit amet eleifend eleifend, elit diam porttitor dolor,
+                    vel porta nisi velit facilisis lorem. 
+                    Sed dolor magna, malesuada nec sapien at, 
+                    rutrum luctus magna. 
+                    Fusce pellentesque vel nisi at volutpat. 
+                </p>
+            </div>
+            <div class="info">
+                <h2>Descrizione Firenze
+                </h2>                
+
+                <p><img src="img/firenze.jpeg" alt="alt"/>  
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+                    Phasellus cursus, 
+                    felis sed vehicula eleifend, ligula ante ullamcorper justo, 
+                    nec vehicula mi massa ac massa. 
+                    Morbi malesuada arcu eu metus laoreet pretium. 
+                    Donec pharetra gravida ipsum non congue. 
+                    Aenean et massa urna. Integer rutrum, 
+                    massa sit amet eleifend eleifend, elit diam porttitor dolor,
+                    vel porta nisi velit facilisis lorem. 
+                    Sed dolor magna, malesuada nec sapien at, 
+                    rutrum luctus magna. 
+                    Fusce pellentesque vel nisi at volutpat. 
+
+                </p>
+            </div>
+            <div class="dati">
+                <table>
+                    <tr>
+                        <th>Citt&agrave;</th>
+                        <th colspan="2">Popolazione e clima</th>
+
+                    </tr>
+                    <tr>
+                        <td>Londra</td>
+                        <td>22000000</td>
+                        <td>mite</td>
+                    </tr>
+                    <tr>
+                        <td>Parigi</td>
+                        <td>1000000000</td>
+                        <td>continentale</td>
+                    </tr>
+                    <tr>
+                        <td>Firenze</td>
+                        <td>750000</td>
+                        <td>mediterraneo</td>
+                    </tr>
+                </table>
+
+            </div>
+        </div>
+
+        <footer>
+            <h2>footer</h2>
+        </footer>
+
+
+
+    </body>
+</html>
