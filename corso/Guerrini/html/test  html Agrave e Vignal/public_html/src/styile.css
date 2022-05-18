@@ -9,8 +9,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
 *{
     margin: 0px;
     padding: 0px;
-    box-sizing: border-box;
-    margin-right: -4px;
+
+
 }
 div,ul{
     margin: 20px;
@@ -20,8 +20,22 @@ div,ul{
 .fullrow{
     width: 100%;
 }
-body{
-    background-color: lightblue;
+
+
+
+h1{
+    color:blueviolet;
+    text-align: center;
+    font-size: 70px;
+    text-decoration: underline;
+}
+h2{
+    color:blueviolet;
+    font-weight: bolder;
+    text-decoration: underline;
+}
+#end{
+    text-align: center;
 }
 
 footer{
