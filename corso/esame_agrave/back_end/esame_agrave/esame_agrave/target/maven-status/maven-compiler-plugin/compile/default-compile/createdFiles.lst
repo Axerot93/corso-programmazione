@@ -1,0 +1,14 @@
+control/UserStore.class
+airhacks/service/CorsResponseFilter.class
+adapters/UserTypeAdapter.class
+security/SecurityEncoding.class
+entity/User.class
+security/JWTManager.class
+boundary/UsersResources.class
+entity/BaseEntity.class
+airhacks/service/ping/boundary/PingResource.class
+entity/UserRoles.class
+boundary/Credential.class
+airhacks/service/OptionRequestFilter.class
+security/JwtTokenException.class
+airhacks/service/JAXRSConfiguration.class
