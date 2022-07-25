@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Nuovo Utente</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div id="login">
+            <form  method="get" id="fcontatti" action="">
+                <h1>BookMark App Create User</h1>
+                <input id="name" required name="Nome" placeholder="Tuo Nome"/>  <br>
+                <input id="lastname" required name="Cognome" placeholder="Tuo Congnome"/> <br> 
+                <input id="roleuser" required name="roleuser" placeholder="Ruolo del Utente - Admin o User"/> <br>                 
+                <input id="usr" required name="mail" placeholder="ins indirizzo mail"/>  <br>
+                <input id="pwd" required type="password" name="pwd" placeholder="inserisci la tua password..."/> <br> 
+                <input type="submit" id="btnNewUser" value="Crea User"> 
+                
+                <br>
+                <input id="usrc" required name="usrc" placeholder="Id Utente a cancellare"/>  
+                <input type="submit" id="btnCancellaUser" value="Cancella User"> 
+                
+            </form>         
+            <ul id = "users"> </ul>
+        </div>
+    </body>
+    <script src="js/createuser.js"></script>
+</html>

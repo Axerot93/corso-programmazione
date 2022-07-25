@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Book</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div id="login">
+            <form  method="get" id="fcontatti" action="">
+                <h1>Creazione segnalibri</h1>
+                <input id="descrizione" placeholder="inserisci la descrizione del SegnaLibro..."/>  <br>
+                <input id="link" placeholder="inserisci il link." /> <br> 
+                <input id="condiviso" placeholder="condiviso 1 o 0" />
+                <input type="submit" id="btnNewBook" value="Crea SegnaLibro"> 
+                <input type="submit" id="btnleggeBook" value="Legge SegnaLibro">  <br><br>
+                <input id="bookid" placeholder="SegnaLibro a aggiornare" /> 
+                <input id="tags" placeholder="tags do bookmk" /> 
+                <input type="submit" id="btnAddTag" value="Aggiunge Tag a SegnaLibro"> <br><br>
+                <input id="cancellare" placeholder="Id del book a cancellare" />
+                <input type="submit" id="btncancellaBook" value="Cancella SegnaLibro">
+                <input id="aggionare" placeholder="Id del SegnaLibro a Aggionare" />
+                <input type="submit" id="btnaggionaBook" value="Aggionare SegnaLibro">
+            </form>         
+            <ul id = "books"> </ul>
+        </div>
+    </body>
+    <script src="js/createbook.js"></script>
+</html>
